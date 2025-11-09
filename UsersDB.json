@@ -1,0 +1,33 @@
+{
+  "max" : {
+    "id" : "9f3b52cf-f07e-40c8-820d-197a794c375a",
+    "urls" : {
+      "clck.ru/VozDSO" : {
+        "limit" : 5,
+        "originalUrl" : "13423orrn23onro23n"
+      }
+    }
+  },
+  "timpha" : {
+    "id" : "3680837e-051d-49b2-89b0-67e22e8a08a7",
+    "urls" : {
+      "clck.ru/NDEwNTA5" : {
+        "limit" : 5,
+        "originalUrl" : "https://student-lk.skillfactory.ru/my-study"
+      }
+    }
+  },
+  "tima" : {
+    "id" : "bd342d6e-d401-42f4-9d69-4ee4db21cc85",
+    "urls" : {
+      "clck.ru/hK9Vis" : {
+        "limit" : 5,
+        "originalUrl" : "HashMap"
+      },
+      "clck.ru/ymZPns" : {
+        "limit" : 5,
+        "originalUrl" : "urls"
+      }
+    }
+  }
+}
