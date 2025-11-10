@@ -24,6 +24,7 @@ public class App {
         System.out.println(TextConstants.INSTRUCTION_TEXT);
         System.out.print("Выберите действие: ");
         int actionNumber = sc.nextInt();
+        sc.nextLine();
 
         if (actionNumber == 1) {
             String userLogin = scannerRun("Введите логин: ");
