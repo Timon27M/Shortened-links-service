@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.model.UserData;
 import com.example.model.UsersDB;
+import com.example.utils.TextConstants;
 
 import java.awt.*;
 import java.io.IOException;
@@ -18,16 +19,21 @@ public class App {
 //    }
 
     static Scanner sc = new Scanner(System.in);
-    static HashMap<String, UserData> usersDB = UsersDB.getUsersDB();
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
-        String userLogin = scannerRun("Введите логин: ");
-        String originalUrl = scannerRun("Введите url: ");
-        if (UsersDB.checkUser(userLogin)) {
-            UsersDB.addUserUrl(userLogin, originalUrl);
-            return;
+    public static void main(String[] args) {
+        System.out.println(TextConstants.INSTRUCTION_TEXT);
+        System.out.print("Выберите действие: ");
+        int actionNumber = sc.nextInt();
+
+        if (actionNumber == 1) {
+            String userLogin = scannerRun("Введите логин: ");
+            String originalUrl = scannerRun("Введите url: ");
+            if (UsersDB.checkUser(userLogin)) {
+                UsersDB.addUserUrl(userLogin, originalUrl);
+                return;
+            }
+            UsersDB.addUser(userLogin, originalUrl, 5);
         }
-        UsersDB.addUser(userLogin, originalUrl, 5);
     }
 
     public static String scannerRun(String text) {
