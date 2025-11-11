@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions>
+    <suppress files=".*Record\.java" checks="FinalClass" />
+    <suppress files=".*Record\.java" checks="HideUtilityClassConstructor" />
+    <suppress files=".*Sealed.*\.java" checks="DesignForExtension" />
+    <suppress files=".*Test\.java" checks="MagicNumber" />
+</suppressions>
