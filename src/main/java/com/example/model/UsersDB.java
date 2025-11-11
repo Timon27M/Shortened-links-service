@@ -1,6 +1,7 @@
 package com.example.model;
 
 import com.example.utils.HashMapJsonConverter;
+import com.example.utils.JavaUrlValidator;
 
 import java.util.HashMap;
 
@@ -14,6 +15,11 @@ public class UsersDB {
     }
 
     public static void addUser(String login, String originUrl, int limit) {
+        if (!JavaUrlValidator.isValidUrl(originUrl)) {
+            System.out.println("Невалидная ссылка");
+            return;
+        }
+
         UserData user = new UserData();
         user.addUserUrl(originUrl, limit);
 
@@ -37,6 +43,10 @@ public class UsersDB {
     }
 
     public static void addUserUrl(String login, String originUrl) {
+        if (!JavaUrlValidator.isValidUrl(originUrl)) {
+            System.out.println("Невалидная ссылка");
+            return;
+        }
         UserData currentUser = getUser(login);
 
         if (currentUser == null) {

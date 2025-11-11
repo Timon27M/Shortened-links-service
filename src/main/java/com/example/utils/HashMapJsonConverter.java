@@ -21,7 +21,7 @@ public class HashMapJsonConverter {
     public static void saveHashMapToJson(HashMap<String, UserData> map, String filePath) {
         try {
             objectMapper.writeValue(new File(filePath), map);
-            System.out.println("HashMap успешно сохранен в JSON файл");
+            System.out.println("Данные успешно сохранены");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,7 +33,6 @@ public class HashMapJsonConverter {
         try {
             File file = new File(filePath);
             if (!file.exists() || file.length() == 0) {
-                System.out.println("⚠️ Файл не существует, возвращаем пустой HashMap");
                 return new HashMap<>();
             }
 

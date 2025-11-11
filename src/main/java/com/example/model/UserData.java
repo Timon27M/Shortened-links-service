@@ -1,6 +1,7 @@
 package com.example.model;
 
 import com.example.utils.CustomUrlShortener;
+import com.example.utils.JavaUrlValidator;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -33,7 +34,6 @@ public class UserData {
     }
 
     public void addUserUrl(String originUrl, int limit) {
-
         if (checkUserOriginUrl(originUrl)) {
             System.out.println("Данный url уже зарегистрирован");
             return;

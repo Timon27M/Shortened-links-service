@@ -1,0 +1,20 @@
+{
+  "timosha" : {
+    "id" : "41623153-a34c-410c-a058-89c7b9052c72",
+    "urls" : {
+      "clck.ru/YTE3NDdm" : {
+        "limit" : 5,
+        "originalUrl" : "https://fejwflwefowefo"
+      }
+    }
+  },
+  "tima" : {
+    "id" : "6431dff6-c6b5-4bb9-ae1d-28b80d72f0ad",
+    "urls" : {
+      "clck.ru/NzNlY2Iz" : {
+        "limit" : 5,
+        "originalUrl" : "https://www.baeldung.com/java-9-http-client"
+      }
+    }
+  }
+}
