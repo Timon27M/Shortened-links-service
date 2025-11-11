@@ -11,16 +11,15 @@ public class UrlInfo {
   private int expirationTime;
   private DateTimeFormatter formatter;
 
-    public UrlInfo() {}
+  public UrlInfo() {}
 
   public UrlInfo(String originalUrl, @Nullable Integer limit, @Nullable Integer expirationTime) {
     this.originalUrl = originalUrl;
     this.limit = limit == null ? 5 : limit;
     this.expirationTime = expirationTime == null ? 10 : expirationTime;
 
-    LocalDateTime dateTime = LocalDateTime.now();
     this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    this.date = dateTime.format(formatter);
+    this.date = LocalDateTime.now().format(formatter);
   }
 
     public String getDate() {
@@ -33,6 +32,10 @@ public class UrlInfo {
 
     public int getExpirationTime() {
         return expirationTime;
+    }
+
+    public void setExpirationTime(int expirationTime) {
+      this.expirationTime = expirationTime;
     }
 
     public int getLimit() {

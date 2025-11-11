@@ -18,24 +18,37 @@ public class UsersDB {
     }
 
     UserData user = new UserData();
-    user.addUrl(originalUrl, limit);
+    String shortUrl = user.addUrl(originalUrl, limit);
 
     usersDB.put(login, user);
     saveUsers();
+
+      System.out.println("Создана короткая ссылка: " + shortUrl);
   }
 
   public static UserData getUser(String login) {
     return usersDB.get(login);
   }
 
-  public static String getUserUrl(String login, String url) {
-    UserData user = getUser(login);
+  public static String getUserUrl(String shortUrl) {
+//    UserData user = getUser(login);
+//
+//    if (!user.checkUserShortUrl(url)) {
+//      System.out.println("URL не найден");
+//    }
+//
+//    return user.getShortUrlData(url).toString();
 
-    if (!user.checkUserShortUrl(url)) {
-      System.out.println("URL не найден");
-    }
+      for (UserData user : usersDB.values()) {
+          HashMap<String, UrlInfo> urls = user.getUrls();
 
-    return user.getShortUrlData(url).toString();
+          if (urls.containsKey(shortUrl)) {
+              UrlInfo urlInfo = urls.get(shortUrl);
+              return urlInfo.getOriginalUrl();
+          }
+      }
+
+      return null;
   }
 
   public static void addUserUrl(String login, String originalUrl, @Nullable Integer limit) {
@@ -50,10 +63,12 @@ public class UsersDB {
       return;
     }
 
-    currentUser.addUrl(originalUrl, limit);
+    String shortUrl = currentUser.addUrl(originalUrl, limit);
 
     usersDB.put(login, currentUser);
     saveUsers();
+
+    System.out.println("Создана короткая ссылка: " + shortUrl);
   }
 
   private static void saveUsers() {

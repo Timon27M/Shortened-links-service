@@ -16,7 +16,7 @@ public class App {
 
   static Scanner sc = new Scanner(System.in);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws URISyntaxException, IOException {
     System.out.println(TextConstants.INSTRUCTION_TEXT);
     System.out.print("Выберите действие: ");
     int actionNumber = sc.nextInt();
@@ -31,6 +31,12 @@ public class App {
       }
       UsersDB.addUser(userLogin, originalUrl, 5);
     }
+
+    if (actionNumber == 2) {
+        String shortUrl = scannerRun("Введите url для перехода: ");
+
+        followLink(shortUrl);
+    }
   }
 
   public static String scannerRun(String text) {
@@ -38,8 +44,12 @@ public class App {
     return sc.nextLine();
   }
 
-  public static void handleClick(String login, String url) throws URISyntaxException, IOException {
-    String originalUrl = UsersDB.getUserUrl(login, url);
+  public static void followLink(String url) throws URISyntaxException, IOException {
+    String originalUrl = UsersDB.getUserUrl(url);
+    if (originalUrl == null) {
+        System.out.println("Ссылки не существует");
+        return;
+    }
 
     Desktop.getDesktop().browse(new URI(originalUrl));
   }

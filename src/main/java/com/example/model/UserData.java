@@ -21,10 +21,10 @@ public class UserData {
     return urls;
   }
 
-  public void addUrl(String originalUrl, int limit) {
+  public String addUrl(String originalUrl, int limit) {
     if (checkUserOriginUrl(originalUrl)) {
       System.out.println("Данный url уже зарегистрирован");
-      return;
+      return null;
     }
 
     String shortUrl = CustomUrlShortener.shortenUrl(originalUrl);
@@ -32,6 +32,8 @@ public class UserData {
     UrlInfo urlData = new UrlInfo(originalUrl, limit, null);
 
     this.urls.put(shortUrl, urlData);
+
+    return shortUrl;
   }
 
   public UrlInfo getShortUrlData(String shortUrl) {
