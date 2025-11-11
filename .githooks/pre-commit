@@ -1,18 +1,16 @@
 #!/bin/bash
 echo "Running local CI checks..."
 
-# Форматирование кода
-./mvnw spotless:apply
+# Используем системный Maven
+#mvn spotless:apply
 
-# Проверка стиля
-./mvnw checkstyle:check
+mvn checkstyle:check
 if [ $? -ne 0 ]; then
     echo "❌ Checkstyle failed!"
     exit 1
 fi
 
-# Запуск тестов
-./mvnw test
+mvn test
 if [ $? -ne 0 ]; then
     echo "❌ Tests failed!"
     exit 1
