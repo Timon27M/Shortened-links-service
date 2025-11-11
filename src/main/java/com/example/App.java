@@ -26,7 +26,7 @@ public class App {
       String userLogin = scannerRun("Введите логин: ");
       String originalUrl = scannerRun("Введите url: ");
       if (UsersDB.checkUser(userLogin)) {
-        UsersDB.addUserUrl(userLogin, originalUrl);
+        UsersDB.addUserUrl(userLogin, originalUrl, 5);
         return;
       }
       UsersDB.addUser(userLogin, originalUrl, 5);
@@ -39,8 +39,8 @@ public class App {
   }
 
   public static void handleClick(String login, String url) throws URISyntaxException, IOException {
-    String originUrl = UsersDB.getUserUrl(login, url);
+    String originalUrl = UsersDB.getUserUrl(login, url);
 
-    Desktop.getDesktop().browse(new URI(originUrl));
+    Desktop.getDesktop().browse(new URI(originalUrl));
   }
 }

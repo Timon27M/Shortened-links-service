@@ -11,12 +11,15 @@ public class HashMapJsonConverter {
 
   private static final ObjectMapper objectMapper = new ObjectMapper();
 
-  static {
-    objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-  }
+    static {
+        objectMapper.findAndRegisterModules();
 
-  // UsersDB → JSON файл
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+    }
+
   public static void saveHashMapToJson(HashMap<String, UserData> map, String filePath) {
     try {
       objectMapper.writeValue(new File(filePath), map);
@@ -26,7 +29,6 @@ public class HashMapJsonConverter {
     }
   }
 
-  // JSON файл → HashMap
   public static HashMap<String, UserData> loadHashMapFromJson(String filePath) {
 
     try {

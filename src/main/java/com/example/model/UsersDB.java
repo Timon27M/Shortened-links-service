@@ -2,6 +2,7 @@ package com.example.model;
 
 import com.example.utils.HashMapJsonConverter;
 import com.example.utils.JavaUrlValidator;
+import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 
 public class UsersDB {
@@ -10,18 +11,14 @@ public class UsersDB {
   private static HashMap<String, UserData> usersDB =
       HashMapJsonConverter.loadHashMapFromJson(filePath);
 
-  public static HashMap<String, UserData> getUsersDB() {
-    return usersDB;
-  }
-
-  public static void addUser(String login, String originUrl, int limit) {
-    if (!JavaUrlValidator.isValidUrl(originUrl)) {
+  public static void addUser(String login, String originalUrl, int limit) {
+    if (!JavaUrlValidator.isValidUrl(originalUrl)) {
       System.out.println("Невалидная ссылка");
       return;
     }
 
     UserData user = new UserData();
-    user.addUserUrl(originUrl, limit);
+    user.addUrl(originalUrl, limit);
 
     usersDB.put(login, user);
     saveUsers();
@@ -41,8 +38,8 @@ public class UsersDB {
     return user.getShortUrlData(url).toString();
   }
 
-  public static void addUserUrl(String login, String originUrl) {
-    if (!JavaUrlValidator.isValidUrl(originUrl)) {
+  public static void addUserUrl(String login, String originalUrl, @Nullable Integer limit) {
+    if (!JavaUrlValidator.isValidUrl(originalUrl)) {
       System.out.println("Невалидная ссылка");
       return;
     }
@@ -53,7 +50,7 @@ public class UsersDB {
       return;
     }
 
-    currentUser.addUserUrl("urls", 5);
+    currentUser.addUrl(originalUrl, limit);
 
     usersDB.put(login, currentUser);
     saveUsers();

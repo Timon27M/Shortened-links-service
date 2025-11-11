@@ -1,8 +1,6 @@
 package com.example.model;
 
 import com.example.utils.CustomUrlShortener;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -15,13 +13,6 @@ public class UserData {
     this.urls = new HashMap<>();
   }
 
-  @JsonCreator
-  public UserData(
-      @JsonProperty("id") String id, @JsonProperty("urls") HashMap<String, UrlInfo> urls) {
-    this.id = id != null ? id : UUID.randomUUID().toString();
-    this.urls = urls != null ? urls : new HashMap<>();
-  }
-
   public String getId() {
     return id;
   }
@@ -30,15 +21,15 @@ public class UserData {
     return urls;
   }
 
-  public void addUserUrl(String originUrl, int limit) {
-    if (checkUserOriginUrl(originUrl)) {
+  public void addUrl(String originalUrl, int limit) {
+    if (checkUserOriginUrl(originalUrl)) {
       System.out.println("Данный url уже зарегистрирован");
       return;
     }
 
-    String shortUrl = CustomUrlShortener.shortenUrl(originUrl);
+    String shortUrl = CustomUrlShortener.shortenUrl(originalUrl);
 
-    UrlInfo urlData = new UrlInfo(originUrl, limit);
+    UrlInfo urlData = new UrlInfo(originalUrl, limit, null);
 
     this.urls.put(shortUrl, urlData);
   }
@@ -51,8 +42,8 @@ public class UserData {
     return this.urls.containsKey(shortUrl);
   }
 
-  public boolean checkUserOriginUrl(String originUrl) {
+  public boolean checkUserOriginUrl(String originlalUrl) {
     return this.urls.values().stream()
-        .anyMatch(urlInfo -> originUrl.equals(urlInfo.getOriginalUrl()));
+        .anyMatch(urlInfo -> originlalUrl.equals(urlInfo.getOriginalUrl()));
   }
 }

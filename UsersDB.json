@@ -1,19 +1,29 @@
 {
   "timosha" : {
-    "id" : "41623153-a34c-410c-a058-89c7b9052c72",
+    "id" : "582ad13e-7941-44c1-b502-4df9276b4214",
     "urls" : {
-      "clck.ru/YTE3NDdm" : {
+      "clck.ru/NzNlMmQy" : {
         "limit" : 5,
-        "originalUrl" : "https://fejwflwefowefo"
+        "originalUrl" : "https://chat.deepseek.com/a/chat/s/422b7ff9-3bc4-4c32-882a-2a7bbb9bf926",
+        "date" : "2025-11-11 21:01:43",
+        "expirationTime" : 10
       }
     }
   },
-  "tima" : {
-    "id" : "6431dff6-c6b5-4bb9-ae1d-28b80d72f0ad",
+  "tim" : {
+    "id" : "c14079a5-0dbf-40a1-9b84-3869fa1d1709",
     "urls" : {
-      "clck.ru/NzNlY2Iz" : {
+      "clck.ru/Y2VhNDY0" : {
         "limit" : 5,
-        "originalUrl" : "https://www.baeldung.com/java-9-http-client"
+        "originalUrl" : "https://chat.deepseek.com/a/chat/s/422b7ff9-3bc4-4c32-882a-2a7bbb9bf926",
+        "date" : "2025-11-11 20:57:57",
+        "expirationTime" : 10
+      },
+      "clck.ru/ZmFiMDJh" : {
+        "limit" : 5,
+        "originalUrl" : "https://apps.skillfactory.ru/learning/course/course-v1:skillfactory+MIFIDEV-1sem+JUN2025/block-v1:skillfactory+MIFIDEV-1sem+JUN2025+type@sequential+block@8784589536374f2b9617343653ac2312/block-v1:skillfactory+MIFIDEV-1sem+JUN2025+type@vertical+block@6c460bd98e004ea2990b32036df94f50",
+        "date" : "2025-11-11 20:59:34",
+        "expirationTime" : 10
       }
     }
   }
