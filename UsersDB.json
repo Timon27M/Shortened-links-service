@@ -1,4 +1,37 @@
 {
+  "Maxim" : {
+    "id" : "ecbe1dce-f195-4f04-b256-c7eea367ec67",
+    "urls" : {
+      "clck.ru/ZjYxNDkz" : {
+        "limit" : 66,
+        "originalUrl" : "https://chat.deepseek.com/a/chat/s/163fa357-1f07-4cd6-bc33-241a9373ed74",
+        "date" : "2025-11-12 20:26:46",
+        "expirationTime" : 10
+      }
+    }
+  },
+  "timoshaa" : {
+    "id" : "0370b3fd-e06d-491a-9a62-6df77d59f977",
+    "urls" : {
+      "clck.ru/NGFkYjhi" : {
+        "limit" : 26,
+        "originalUrl" : "https://chat.deepseek.com/a/chat/s/163fa357-1f07-4cd6-bc33-241a9373ed74",
+        "date" : "2025-11-12 20:26:19",
+        "expirationTime" : 10
+      }
+    }
+  },
+  "timmma" : {
+    "id" : "f8ffe99f-f8ad-4262-b0e3-2be7f391cb69",
+    "urls" : {
+      "clck.ru/YzFkZTZj" : {
+        "limit" : 15,
+        "originalUrl" : "https://hh.ru/",
+        "date" : "2025-11-12 17:11:25",
+        "expirationTime" : 10
+      }
+    }
+  },
   "tima" : {
     "id" : "d8626b48-4340-4411-b1b9-eb4d5ffa5fb8",
     "urls" : {

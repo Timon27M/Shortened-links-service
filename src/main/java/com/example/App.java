@@ -1,6 +1,8 @@
 package com.example;
 
+import com.example.repository.UrlRepository;
 import com.example.repository.UserRepository;
+import com.example.service.UrlService;
 import com.example.service.UserService;
 import com.example.utils.ScannerUtil;
 import com.example.utils.TextConstants;
@@ -14,9 +16,15 @@ public class App {
     private static UserRepository userRepository;
     private static UserService userService;
 
+    private static UrlRepository urlRepository;
+    private static UrlService urlService;
+
     public static void main(String[] args) throws URISyntaxException, IOException {
+        urlRepository = new UrlRepository();
+        urlService = new UrlService(urlRepository);
+
         userRepository = new UserRepository();
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, urlService);
 
         System.out.println(TextConstants.INSTRUCTION_TEXT);
         Integer actionNumber = ScannerUtil.readInt("Выберите действие: ");

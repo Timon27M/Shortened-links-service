@@ -8,9 +8,11 @@ import java.util.HashMap;
 
 public class UserService {
     private final UserRepository userRepository;
+    private final UrlService urlService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UrlService urlService) {
         this.userRepository = userRepository;
+        this.urlService = urlService;
     }
 
     public void createUser(String login, String originalUrl, Integer limit) {
@@ -20,8 +22,10 @@ public class UserService {
 
         UserData user = new UserData();
         String shortUrl = user.addUrl(originalUrl, limit);
+        UrlInfo userData = user.getShortUrlData(shortUrl);
 
         userRepository.saveUser(login, user);
+        urlService.saveUrl(shortUrl, userData);
         System.out.println("Создана короткая ссылка: " + shortUrl);
     }
 
@@ -30,18 +34,31 @@ public class UserService {
             throw new IllegalArgumentException("Невалидная ссылка");
         }
 
-        UserData user = userRepository.findUser(login);
-        if (user == null) {
+        if (!userRepository.checkUser(login)) {
             throw new IllegalArgumentException("Пользователь не найден");
         }
+
+        UserData user = userRepository.findUser(login);
 
         String shortUrl = user.addUrl(originalUrl, limit);
         userRepository.saveUser(login, user);
         System.out.println("Создана короткая ссылка: " + shortUrl);
     }
 
+    public HashMap<String, UrlInfo> getUrlInfo(String login, String shortUrl) {
+        if (!userRepository.checkUser(login)) {
+            throw new IllegalArgumentException("Пользователь не найден");
+        }
+
+        return userRepository.findUser(login).getUrls();
+    }
+
     public String getOriginalUrl(String shortUrl) {
-        for (UserData user : userRepository.getUsers().values()) {
+        String originalUrl = urlService.getOriginalUrl(shortUrl);;
+
+        // Внутренний поиск если в UrlsDB не найдено
+        if (originalUrl == null) {
+            for (UserData user : userRepository.getUsers().values()) {
             HashMap<String, UrlInfo> urls = user.getUrls();
 
             if (urls.containsKey(shortUrl)) {
@@ -49,7 +66,8 @@ public class UserService {
                 return urlInfo.getOriginalUrl();
             }
         }
+        }
 
-        return null;
+        return originalUrl;
     }
 }

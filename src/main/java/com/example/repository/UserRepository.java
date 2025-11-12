@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import com.example.model.UrlInfo;
 import com.example.model.UserData;
 import com.example.utils.HashMapJsonConverter;
 
@@ -10,7 +11,7 @@ public class UserRepository {
   private final String filePath = "UsersDB.json";
   private HashMap<String, UserData> users;
   public UserRepository() {
-      this.users = HashMapJsonConverter.loadHashMapFromJson(filePath);
+      this.users = HashMapJsonConverter.loadHashMapFromJson(filePath,  String.class, UserData.class);
   }
 
   public UserData findUser(String login) {

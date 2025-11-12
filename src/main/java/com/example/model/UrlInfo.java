@@ -47,7 +47,7 @@ public class UrlInfo {
   }
 
   public String getOriginalUrl() {
-    return originalUrl;
+    return this.originalUrl;
   }
 
   public void setOriginalUrl(String originalUrl) {
