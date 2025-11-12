@@ -13,36 +13,26 @@ public class UserData {
     this.urls = new HashMap<>();
   }
 
-  public String getId() {
-    return id;
-  }
-
-  public HashMap<String, UrlInfo> getUrls() {
-    return urls;
-  }
-
-  public String addUrl(String originalUrl, int limit) {
+  public String addUrl(String originalUrl, Integer limit) {
     if (checkUserOriginUrl(originalUrl)) {
       System.out.println("Данный url уже зарегистрирован");
       return null;
     }
 
     String shortUrl = CustomUrlShortener.shortenUrl(originalUrl);
-
     UrlInfo urlData = new UrlInfo(originalUrl, limit, null);
-
     this.urls.put(shortUrl, urlData);
 
     return shortUrl;
   }
 
-  public UrlInfo getShortUrlData(String shortUrl) {
-    return this.urls.get(shortUrl);
-  }
+  public String getId() { return id; }
 
-  public boolean checkUserShortUrl(String shortUrl) {
-    return this.urls.containsKey(shortUrl);
-  }
+  public HashMap<String, UrlInfo> getUrls() { return urls; }
+
+  public UrlInfo getShortUrlData(String shortUrl) { return this.urls.get(shortUrl); }
+
+  public boolean checkUserShortUrl(String shortUrl) { return this.urls.containsKey(shortUrl); }
 
   public boolean checkUserOriginUrl(String originlalUrl) {
     return this.urls.values().stream()
