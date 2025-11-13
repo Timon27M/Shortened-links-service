@@ -16,17 +16,17 @@ public class UrlService {
 
   public String getOriginalUrl(String shortUrl) {
     if (shortUrl == null || shortUrl.isEmpty()) {
-        ColorPrint.printlnRed("Ссылки не существует");
+      ColorPrint.printlnRed("Ссылки не существует");
     }
 
     if (!urlRepository.checkUrl(shortUrl)) {
-        return null;
+      return null;
     }
 
     UrlInfo urlData = urlRepository.getUrlInfo(shortUrl);
 
     if (urlData == null) {
-        ColorPrint.printlnRed("Ссылка не найден");
+      ColorPrint.printlnRed("Ссылка не найден");
     }
 
     return urlData.getOriginalUrl();

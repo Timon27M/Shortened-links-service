@@ -31,7 +31,7 @@ public class UserService {
 
     userRepository.saveUser(login, user);
     urlService.saveUrl(shortUrl, userData);
-      ColorPrint.printlnGreen("Создана короткая ссылка: " + shortUrl);
+    ColorPrint.printlnGreen("Создана короткая ссылка: " + shortUrl);
   }
 
   public void addUrlToUser(
@@ -56,8 +56,8 @@ public class UserService {
 
   public UrlInfo getUrlInfo(String login, String shortUrl) {
     if (!userRepository.checkUser(login)) {
-        ColorPrint.printlnRed("Пользователь не найден");
-        return null;
+      ColorPrint.printlnRed("Пользователь не найден");
+      return null;
     }
 
     return userRepository.findUser(login).getShortUrlData(shortUrl);
@@ -84,7 +84,7 @@ public class UserService {
             deleteUrlToUser(shortUrl);
           }
           if (checkLimitUrl(login, shortUrl) == Boolean.FALSE) {
-              ColorPrint.printlnRed("Лимит переходов закончичлся, ссылка удалена.");
+            ColorPrint.printlnRed("Лимит переходов закончичлся, ссылка удалена.");
             deleteUrlToUser(shortUrl);
             return null;
           }
@@ -157,7 +157,6 @@ public class UserService {
   }
 
   public boolean checkUser(String login) {
-      return userRepository.checkUser(login);
+    return userRepository.checkUser(login);
   }
-
 }

@@ -9,8 +9,16 @@ public class ColorPrint {
   public static void printlnRed(String text) {
     System.out.println(RED + text + RESET);
   }
-  public static void printlnGreen(String text) {System.out.println(GREEN + text + RESET);}
-  public static void printlnBlue(String text) {System.out.println(BLUE + text + RESET);}
 
-  public static void printRed(String text) {System.out.print(RED + text + RESET);}
+  public static void printlnGreen(String text) {
+    System.out.println(GREEN + text + RESET);
+  }
+
+  public static void printlnBlue(String text) {
+    System.out.println(BLUE + text + RESET);
+  }
+
+  public static void printRed(String text) {
+    System.out.print(RED + text + RESET);
+  }
 }
