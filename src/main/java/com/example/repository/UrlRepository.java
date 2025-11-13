@@ -2,6 +2,7 @@ package com.example.repository;
 
 import com.example.model.UrlInfo;
 import com.example.utils.HashMapJsonConverter;
+import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 
 public class UrlRepository {
@@ -14,6 +15,18 @@ public class UrlRepository {
 
     public UrlInfo getUrlInfo(String shortUrl) {
         return urls.get(shortUrl);
+    }
+
+    public String getDateUrl(String shortUrl) {
+        return urls.get(shortUrl).getDate();
+    }
+
+    public @Nullable Integer getExpirationTimeUrl(String shortUrl) {
+        UrlInfo urlInfo = getUrlInfo(shortUrl);
+        if (urlInfo == null) {
+            return null;
+        }
+        return urlInfo.getExpirationTime();
     }
 
     public HashMap<String, UrlInfo> getUrls() {
@@ -31,5 +44,10 @@ public class UrlRepository {
 
     public boolean checkUrl(String shortUrl) {
         return urls.containsKey(shortUrl);
+    }
+
+    public void deleteUrl(String shortUrl) {
+        urls.remove(shortUrl);
+        saveUrls();
     }
 }

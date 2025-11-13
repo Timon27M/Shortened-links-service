@@ -1,6 +1,5 @@
 package com.example.repository;
 
-import com.example.model.UrlInfo;
 import com.example.model.UserData;
 import com.example.utils.HashMapJsonConverter;
 
@@ -33,5 +32,10 @@ public class UserRepository {
 
   public boolean checkUser(String login) {
     return users.containsKey(login);
+  }
+
+  public void deleteUrlToUser(String login, String shortUrl) {
+      findUser(login).deleteUrl(shortUrl);
+      saveUsers();
   }
 }

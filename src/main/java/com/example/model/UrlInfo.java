@@ -30,7 +30,7 @@ public class UrlInfo {
         this.date = date;
     }
 
-    public int getExpirationTime() {
+    public @Nullable Integer getExpirationTime() {
         return expirationTime;
     }
 
@@ -48,6 +48,10 @@ public class UrlInfo {
 
   public String getOriginalUrl() {
     return this.originalUrl;
+  }
+
+  public void decrimentLimit() {
+      this.limit = this.limit - 1;
   }
 
   public void setOriginalUrl(String originalUrl) {

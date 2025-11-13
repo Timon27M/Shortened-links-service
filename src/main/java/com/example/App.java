@@ -5,7 +5,7 @@ import com.example.repository.UserRepository;
 import com.example.service.UrlService;
 import com.example.service.UserService;
 import com.example.utils.ScannerUtil;
-import com.example.utils.TextConstants;
+import com.example.utils.UtilConstants;
 import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.io.IOException;
@@ -26,7 +26,10 @@ public class App {
         userRepository = new UserRepository();
         userService = new UserService(userRepository, urlService);
 
-        System.out.println(TextConstants.INSTRUCTION_TEXT);
+        boolean isRunProgram = true;
+
+        while(isRunProgram) {
+        System.out.println(UtilConstants.INSTRUCTION_TEXT);
         Integer actionNumber = ScannerUtil.readInt("Выберите действие: ");
 
         if (actionNumber == null) {
@@ -37,7 +40,12 @@ public class App {
         switch (actionNumber) {
             case 1 -> handleCreateUrl();
             case 2 -> handleFollowLink();
+            case 4 -> {
+                System.out.println("Выход из программы");
+                isRunProgram = false;
+            }
             default -> System.out.println("Неизвестное действие");
+        }
         }
     }
 
@@ -56,13 +64,15 @@ public class App {
 
         @Nullable Integer followLimit = ScannerUtil.readInt("Введите лимит переходов по ссылке: ");
 
+        @Nullable Integer expirationTime = ScannerUtil.readInt("Введите время жизни ссылки (в минутах): ");
+
         try {
             if (userRepository.checkUser(userLogin)) {
                 // Пользователь существует - добавляем URL
-                userService.addUrlToUser(userLogin, originalUrl, followLimit);
+                userService.addUrlToUser(userLogin, originalUrl, followLimit, expirationTime);
             } else {
                 // Новый пользователь - создаем
-                userService.createUser(userLogin, originalUrl, followLimit);
+                userService.createUser(userLogin, originalUrl, followLimit, expirationTime);
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
@@ -84,5 +94,6 @@ public class App {
 
       System.out.println("Переход по ссылке: " + originalUrl);
       Desktop.getDesktop().browse(new URI(originalUrl));
+      userService.decrimentLimit(shortUrl);
   }
 }

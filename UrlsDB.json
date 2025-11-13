@@ -1,14 +1,20 @@
 {
-  "clck.ru/ZjYxNDkz" : {
-    "limit" : 66,
-    "originalUrl" : "https://chat.deepseek.com/a/chat/s/163fa357-1f07-4cd6-bc33-241a9373ed74",
-    "date" : "2025-11-12 20:26:46",
+  "clck.ru/Nzc4NWUx" : {
+    "limit" : 2,
+    "originalUrl" : "https://chatgpt.com/c/6915a4fb-7090-8325-9604-70e14e1a23ca",
+    "date" : "2025-11-13 16:22:49",
     "expirationTime" : 10
   },
-  "clck.ru/NGFkYjhi" : {
-    "limit" : 26,
+  "clck.ru/ZDA0NjQx" : {
+    "limit" : 2,
+    "originalUrl" : "https://chat.deepseek.com/a/chat/s/c17d32fc-c3c4-47cd-839d-b357c450746d",
+    "date" : "2025-11-13 19:51:10",
+    "expirationTime" : 15
+  },
+  "clck.ru/Y2Q2MzVi" : {
+    "limit" : 28,
     "originalUrl" : "https://chat.deepseek.com/a/chat/s/163fa357-1f07-4cd6-bc33-241a9373ed74",
-    "date" : "2025-11-12 20:26:19",
-    "expirationTime" : 10
+    "date" : "2025-11-13 20:32:07",
+    "expirationTime" : 30
   }
 }

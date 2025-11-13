@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.example.utils.ColorPrint;
 import com.example.utils.CustomUrlShortener;
 import java.util.HashMap;
 import java.util.UUID;
@@ -13,14 +14,14 @@ public class UserData {
     this.urls = new HashMap<>();
   }
 
-  public String addUrl(String originalUrl, Integer limit) {
+  public String addUrl(String originalUrl, Integer limit, Integer expirationTime) {
     if (checkUserOriginUrl(originalUrl)) {
-      System.out.println("Данный url уже зарегистрирован");
+        ColorPrint.printlnRed("Данный url уже зарегистрирован");
       return null;
     }
 
     String shortUrl = CustomUrlShortener.shortenUrl(originalUrl);
-    UrlInfo urlData = new UrlInfo(originalUrl, limit, null);
+    UrlInfo urlData = new UrlInfo(originalUrl, limit, expirationTime);
     this.urls.put(shortUrl, urlData);
 
     return shortUrl;
@@ -37,5 +38,9 @@ public class UserData {
   public boolean checkUserOriginUrl(String originlalUrl) {
     return this.urls.values().stream()
         .anyMatch(urlInfo -> originlalUrl.equals(urlInfo.getOriginalUrl()));
+  }
+
+  public void deleteUrl(String shortUrl) {
+      this.urls.remove(shortUrl);
   }
 }
