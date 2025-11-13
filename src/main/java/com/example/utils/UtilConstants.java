@@ -13,5 +13,6 @@ public class UtilConstants {
             4. Выход.
             """;
 
-  public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  public static final DateTimeFormatter FORMATTER =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 }

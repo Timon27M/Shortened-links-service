@@ -1,8 +1,8 @@
 package com.example.model;
 
-import org.jetbrains.annotations.Nullable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import org.jetbrains.annotations.Nullable;
 
 public class UrlInfo {
   private int limit;
@@ -22,23 +22,23 @@ public class UrlInfo {
     this.date = LocalDateTime.now().format(formatter);
   }
 
-    public String getDate() {
-        return date;
-    }
+  public String getDate() {
+    return date;
+  }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+  public void setDate(String date) {
+    this.date = date;
+  }
 
-    public @Nullable Integer getExpirationTime() {
-        return expirationTime;
-    }
+  public @Nullable Integer getExpirationTime() {
+    return expirationTime;
+  }
 
-    public void setExpirationTime(int expirationTime) {
-      this.expirationTime = expirationTime;
-    }
+  public void setExpirationTime(int expirationTime) {
+    this.expirationTime = expirationTime;
+  }
 
-    public int getLimit() {
+  public int getLimit() {
     return limit;
   }
 
@@ -51,7 +51,7 @@ public class UrlInfo {
   }
 
   public void decrimentLimit() {
-      this.limit = this.limit - 1;
+    this.limit = this.limit - 1;
   }
 
   public void setOriginalUrl(String originalUrl) {

@@ -2,52 +2,52 @@ package com.example.repository;
 
 import com.example.model.UrlInfo;
 import com.example.utils.HashMapJsonConverter;
-import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
+import org.jetbrains.annotations.Nullable;
 
 public class UrlRepository {
-    private final String filePath = "UrlsDB.json";
-    private HashMap<String, UrlInfo> urls;
+  private final String filePath = "UrlsDB.json";
+  private HashMap<String, UrlInfo> urls;
 
-    public UrlRepository() {
-        this.urls = HashMapJsonConverter.loadHashMapFromJson(filePath, String.class, UrlInfo.class);
-    }
+  public UrlRepository() {
+    this.urls = HashMapJsonConverter.loadHashMapFromJson(filePath, String.class, UrlInfo.class);
+  }
 
-    public UrlInfo getUrlInfo(String shortUrl) {
-        return urls.get(shortUrl);
-    }
+  public UrlInfo getUrlInfo(String shortUrl) {
+    return urls.get(shortUrl);
+  }
 
-    public String getDateUrl(String shortUrl) {
-        return urls.get(shortUrl).getDate();
-    }
+  public String getDateUrl(String shortUrl) {
+    return urls.get(shortUrl).getDate();
+  }
 
-    public @Nullable Integer getExpirationTimeUrl(String shortUrl) {
-        UrlInfo urlInfo = getUrlInfo(shortUrl);
-        if (urlInfo == null) {
-            return null;
-        }
-        return urlInfo.getExpirationTime();
+  public @Nullable Integer getExpirationTimeUrl(String shortUrl) {
+    UrlInfo urlInfo = getUrlInfo(shortUrl);
+    if (urlInfo == null) {
+      return null;
     }
+    return urlInfo.getExpirationTime();
+  }
 
-    public HashMap<String, UrlInfo> getUrls() {
-        return urls;
-    }
+  public HashMap<String, UrlInfo> getUrls() {
+    return urls;
+  }
 
-    public void saveUrl(String shortUrl, UrlInfo urlInfo) {
-        urls.put(shortUrl, urlInfo);
-        saveUrls();
-    }
+  public void saveUrl(String shortUrl, UrlInfo urlInfo) {
+    urls.put(shortUrl, urlInfo);
+    saveUrls();
+  }
 
-    public void saveUrls() {
-        HashMapJsonConverter.saveHashMapToJson(urls, filePath);
-    }
+  public void saveUrls() {
+    HashMapJsonConverter.saveHashMapToJson(urls, filePath);
+  }
 
-    public boolean checkUrl(String shortUrl) {
-        return urls.containsKey(shortUrl);
-    }
+  public boolean checkUrl(String shortUrl) {
+    return urls.containsKey(shortUrl);
+  }
 
-    public void deleteUrl(String shortUrl) {
-        urls.remove(shortUrl);
-        saveUrls();
-    }
+  public void deleteUrl(String shortUrl) {
+    urls.remove(shortUrl);
+    saveUrls();
+  }
 }

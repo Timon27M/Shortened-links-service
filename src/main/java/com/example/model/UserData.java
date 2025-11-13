@@ -16,7 +16,7 @@ public class UserData {
 
   public String addUrl(String originalUrl, Integer limit, Integer expirationTime) {
     if (checkUserOriginUrl(originalUrl)) {
-        ColorPrint.printlnRed("Данный url уже зарегистрирован");
+      ColorPrint.printlnRed("Данный url уже зарегистрирован");
       return null;
     }
 
@@ -27,13 +27,21 @@ public class UserData {
     return shortUrl;
   }
 
-  public String getId() { return id; }
+  public String getId() {
+    return id;
+  }
 
-  public HashMap<String, UrlInfo> getUrls() { return urls; }
+  public HashMap<String, UrlInfo> getUrls() {
+    return urls;
+  }
 
-  public UrlInfo getShortUrlData(String shortUrl) { return this.urls.get(shortUrl); }
+  public UrlInfo getShortUrlData(String shortUrl) {
+    return this.urls.get(shortUrl);
+  }
 
-  public boolean checkUserShortUrl(String shortUrl) { return this.urls.containsKey(shortUrl); }
+  public boolean checkUserShortUrl(String shortUrl) {
+    return this.urls.containsKey(shortUrl);
+  }
 
   public boolean checkUserOriginUrl(String originlalUrl) {
     return this.urls.values().stream()
@@ -41,6 +49,6 @@ public class UserData {
   }
 
   public void deleteUrl(String shortUrl) {
-      this.urls.remove(shortUrl);
+    this.urls.remove(shortUrl);
   }
 }
