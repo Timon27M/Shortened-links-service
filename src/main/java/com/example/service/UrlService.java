@@ -16,7 +16,7 @@ public class UrlService {
 
   public String getOriginalUrl(String shortUrl) {
     if (shortUrl == null || shortUrl.isEmpty()) {
-      throw new IllegalArgumentException("Ссылки не существует");
+      ColorPrint.printlnRed("Ссылки не существует");
     }
 
     if (!urlRepository.checkUrl(shortUrl)) {
@@ -26,7 +26,7 @@ public class UrlService {
     UrlInfo urlData = urlRepository.getUrlInfo(shortUrl);
 
     if (urlData == null) {
-      throw new IllegalArgumentException("Ссылка не найден");
+      ColorPrint.printlnRed("Ссылка не найден");
     }
 
     return urlData.getOriginalUrl();
