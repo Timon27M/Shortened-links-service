@@ -1,8 +1,7 @@
 package com.example.model;
 
+import com.example.utils.ColorPrint;
 import com.example.utils.CustomUrlShortener;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -15,11 +14,17 @@ public class UserData {
     this.urls = new HashMap<>();
   }
 
-  @JsonCreator
-  public UserData(
-      @JsonProperty("id") String id, @JsonProperty("urls") HashMap<String, UrlInfo> urls) {
-    this.id = id != null ? id : UUID.randomUUID().toString();
-    this.urls = urls != null ? urls : new HashMap<>();
+  public String addUrl(String originalUrl, Integer limit, Integer expirationTime) {
+    if (checkUserOriginUrl(originalUrl)) {
+      ColorPrint.printlnRed("Данный url уже зарегистрирован");
+      return null;
+    }
+
+    String shortUrl = CustomUrlShortener.shortenUrl(originalUrl);
+    UrlInfo urlData = new UrlInfo(originalUrl, limit, expirationTime);
+    this.urls.put(shortUrl, urlData);
+
+    return shortUrl;
   }
 
   public String getId() {
@@ -30,19 +35,6 @@ public class UserData {
     return urls;
   }
 
-  public void addUserUrl(String originUrl, int limit) {
-    if (checkUserOriginUrl(originUrl)) {
-      System.out.println("Данный url уже зарегистрирован");
-      return;
-    }
-
-    String shortUrl = CustomUrlShortener.shortenUrl(originUrl);
-
-    UrlInfo urlData = new UrlInfo(originUrl, limit);
-
-    this.urls.put(shortUrl, urlData);
-  }
-
   public UrlInfo getShortUrlData(String shortUrl) {
     return this.urls.get(shortUrl);
   }
@@ -51,8 +43,12 @@ public class UserData {
     return this.urls.containsKey(shortUrl);
   }
 
-  public boolean checkUserOriginUrl(String originUrl) {
+  public boolean checkUserOriginUrl(String originlalUrl) {
     return this.urls.values().stream()
-        .anyMatch(urlInfo -> originUrl.equals(urlInfo.getOriginalUrl()));
+        .anyMatch(urlInfo -> originlalUrl.equals(urlInfo.getOriginalUrl()));
+  }
+
+  public void deleteUrl(String shortUrl) {
+    this.urls.remove(shortUrl);
   }
 }

@@ -1,6 +1,8 @@
 package com.example.utils;
 
-public class TextConstants {
+import java.time.format.DateTimeFormatter;
+
+public class UtilConstants {
 
   public static final String INSTRUCTION_TEXT =
       """
@@ -10,4 +12,7 @@ public class TextConstants {
             3. Админ права.
             4. Выход.
             """;
+
+  public static final DateTimeFormatter FORMATTER =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 }
