@@ -31,7 +31,7 @@ public class UserService {
 
     userRepository.saveUser(login, user);
     urlService.saveUrl(shortUrl, userData);
-    System.out.println("Создана короткая ссылка: " + shortUrl);
+      ColorPrint.printlnGreen("Создана короткая ссылка: " + shortUrl);
   }
 
   public void addUrlToUser(
@@ -51,12 +51,13 @@ public class UserService {
       return;
     }
     userRepository.saveUser(login, user);
-    System.out.println("Создана короткая ссылка: " + shortUrl);
+    ColorPrint.printlnGreen("Создана короткая ссылка: " + shortUrl);
   }
 
   public UrlInfo getUrlInfo(String login, String shortUrl) {
     if (!userRepository.checkUser(login)) {
-      throw new IllegalArgumentException("Пользователь не найден");
+        ColorPrint.printlnRed("Пользователь не найден");
+        return null;
     }
 
     return userRepository.findUser(login).getShortUrlData(shortUrl);
@@ -83,7 +84,7 @@ public class UserService {
             deleteUrlToUser(shortUrl);
           }
           if (checkLimitUrl(login, shortUrl) == Boolean.FALSE) {
-            System.out.println("Лимит переходов закончичлся, ссылка удалена.");
+              ColorPrint.printlnRed("Лимит переходов закончичлся, ссылка удалена.");
             deleteUrlToUser(shortUrl);
             return null;
           }
@@ -106,7 +107,7 @@ public class UserService {
     return originalUrl;
   }
 
-  public void decrimentLimit(String shortUrl) {
+  public void decrementLimit(String shortUrl) {
     if (urlService.checkUrl(shortUrl)) {
       urlService.decrimentLimitUrlData(shortUrl);
       return;
@@ -154,4 +155,9 @@ public class UserService {
             .plusMinutes(expirationTimeUserUrl);
     return !dateUserUrl.isBefore(LocalDateTime.now());
   }
+
+  public boolean checkUser(String login) {
+      return userRepository.checkUser(login);
+  }
+
 }
