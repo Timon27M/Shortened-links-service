@@ -21,8 +21,8 @@ public class UserData {
     }
 
     String shortUrl = CustomUrlShortener.shortenUrl(originalUrl);
-    UrlInfo urlData = new UrlInfo(originalUrl, limit, expirationTime);
-    this.urls.put(shortUrl, urlData);
+    UrlInfo urlInfo = new UrlInfo(originalUrl, limit, expirationTime);
+    this.urls.put(shortUrl, urlInfo);
 
     return shortUrl;
   }

@@ -1,11 +1,8 @@
 package com.example;
 
 import com.example.UI.ConsoleUI;
-import com.example.repository.UrlRepository;
 import com.example.repository.UserRepository;
-import com.example.service.UrlService;
 import com.example.service.UserService;
-import java.awt.*;
 
 public class App {
   //  private static UserRepository userRepository;
@@ -15,13 +12,13 @@ public class App {
   //  private static UrlService urlService;
 
   public static void main(String[] args) {
-    UrlRepository urlRepository = new UrlRepository();
-    UrlService urlService = new UrlService(urlRepository);
+//    UrlRepository urlRepository = new UrlRepository();
+//    UrlService urlService = new UrlService(urlRepository);
 
     UserRepository userRepository = new UserRepository();
-    UserService userService = new UserService(userRepository, urlService);
+    UserService userService = new UserService(userRepository);
 
-    ConsoleUI ui = new ConsoleUI(userService, urlService);
+    ConsoleUI ui = new ConsoleUI(userService);
     ui.start();
 
     //    urlRepository = new UrlRepository();

@@ -2,7 +2,6 @@ package com.example.UI;
 
 import com.example.handlers.UrlCreationHandler;
 import com.example.handlers.UrlFollowHandler;
-import com.example.service.UrlService;
 import com.example.service.UserService;
 import com.example.utils.ColorPrint;
 import com.example.utils.ScannerUtil;
@@ -14,7 +13,7 @@ public class ConsoleUI {
   private final UserService userService;
   private boolean isStarted;
 
-  public ConsoleUI(UserService userService, UrlService urlService) {
+  public ConsoleUI(UserService userService) {
     this.userService = userService;
     this.isStarted = true;
   }
