@@ -49,7 +49,7 @@ public class UrlService {
   public void decrimentLimitUrlData(String shortUrl) {
     UrlInfo urlInfo = getUrlData(shortUrl);
 
-      urlInfo.decrimentLimit();
+    urlInfo.decrimentLimit();
 
     saveUrl(shortUrl, urlInfo);
   }
@@ -71,7 +71,7 @@ public class UrlService {
   }
 
   public @Nullable Boolean checkActiveUrl(String shortUrl) {
-      Integer expirationTimeUrl = urlRepository.getExpirationTimeUrl(shortUrl);
+    Integer expirationTimeUrl = urlRepository.getExpirationTimeUrl(shortUrl);
 
     if (expirationTimeUrl == null) {
       return null;

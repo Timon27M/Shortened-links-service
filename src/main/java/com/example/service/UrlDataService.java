@@ -5,45 +5,43 @@ import com.example.repository.UrlRepository;
 import com.example.utils.ColorPrint;
 
 public class UrlDataService {
-    private final UrlRepository urlRepository;
+  private final UrlRepository urlRepository;
 
-    public UrlDataService(UrlRepository urlRepository) {
-        this.urlRepository = urlRepository;
+  public UrlDataService(UrlRepository urlRepository) {
+    this.urlRepository = urlRepository;
+  }
+
+  public String getOriginalUrl(String shortUrl) {
+    if (shortUrl == null || shortUrl.isEmpty()) {
+      ColorPrint.printlnRed("Ссылки не существует");
     }
 
-    public String getOriginalUrl(String shortUrl) {
-        if (shortUrl == null || shortUrl.isEmpty()) {
-            ColorPrint.printlnRed("Ссылки не существует");
-        }
-
-        if (!urlRepository.checkUrl(shortUrl)) {
-            return null;
-        }
-
-        UrlInfo urlData = urlRepository.getUrlInfo(shortUrl);
-
-        return urlData != null ? urlData.getOriginalUrl() : null;
+    if (!urlRepository.checkUrl(shortUrl)) {
+      return null;
     }
 
-    public UrlInfo getUrlData(String shortUrl) {
-        UrlInfo urlData = urlRepository.getUrlInfo(shortUrl);
+    UrlInfo urlData = urlRepository.getUrlInfo(shortUrl);
 
-        if (urlData == null) {
-            ColorPrint.printlnRed("Ссылка не найден");
-        }
+    return urlData != null ? urlData.getOriginalUrl() : null;
+  }
 
-        return urlData;
+  public UrlInfo getUrlData(String shortUrl) {
+    UrlInfo urlData = urlRepository.getUrlInfo(shortUrl);
+
+    if (urlData == null) {
+      ColorPrint.printlnRed("Ссылка не найден");
     }
 
-    public void saveUrl(String shortUrl, UrlInfo urlInfoMap) {
-        urlRepository.saveUrl(shortUrl, urlInfoMap);
-    }
+    return urlData;
+  }
 
-    public void deleteUrl(String shortUrl) {
-        urlRepository.deleteUrl(shortUrl);
-    }
+  public void saveUrl(String shortUrl, UrlInfo urlInfoMap) {
+    urlRepository.saveUrl(shortUrl, urlInfoMap);
+  }
 
-    public void decrementLimit(String shortUrl) {
+  public void deleteUrl(String shortUrl) {
+    urlRepository.deleteUrl(shortUrl);
+  }
 
-    }
+  public void decrementLimit(String shortUrl) {}
 }
