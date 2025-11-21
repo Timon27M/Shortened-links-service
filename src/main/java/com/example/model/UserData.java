@@ -14,18 +14,11 @@ public class UserData {
 		this.urls = new HashMap<>();
 	}
 
-	public String addUrl(String originalUrl, Integer limit, Integer expirationTime) {
-		if (checkUserOriginUrl(originalUrl)) {
-			ColorPrint.printlnRed("Данный url уже зарегистрирован");
-			return null;
-		}
+    public String addUrl(String shortUrl, UrlInfo urlInfo) {
+        this.urls.put(shortUrl, urlInfo);
 
-		String shortUrl = CustomUrlShortener.shortenUrl(originalUrl);
-		UrlInfo urlInfo = new UrlInfo(originalUrl, limit, expirationTime);
-		this.urls.put(shortUrl, urlInfo);
-
-		return shortUrl;
-	}
+        return shortUrl;
+    }
 
 	public String getId() {
 		return id;

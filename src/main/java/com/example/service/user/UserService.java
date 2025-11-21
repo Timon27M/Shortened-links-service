@@ -3,13 +3,14 @@ package com.example.service.user;
 import com.example.model.UrlInfo;
 import com.example.model.UserData;
 import com.example.repository.UserRepository;
+import com.example.service.url.UrlLimitService;
+import com.example.service.url.UrlService;
+import com.example.service.url.UrlValidationService;
 import com.example.utils.ColorPrint;
 import com.example.utils.JavaUrlValidator;
-import com.example.utils.UtilConstants;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import org.jetbrains.annotations.Nullable;
+import java.util.UUID;
 
 public class UserService {
 	private final UserRepository userRepository;
@@ -18,13 +19,26 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
+    private static String createShortUrlUser(String originalUrl, Integer limit, Integer expirationTime, UserData user) {
+        String shortUrl = UrlService.createShortUrl(originalUrl, user.getId());
+        UrlInfo urlInfo = UrlService.createUrlInfo(originalUrl, limit, expirationTime);
+        user.addUrl(shortUrl, urlInfo);
+
+        return shortUrl;
+    }
+
 	public void createUser(String login, String originalUrl, Integer limit, Integer expirationTime) {
 		if (!JavaUrlValidator.isValidUrl(originalUrl)) {
 			throw new IllegalArgumentException("Невалидная ссылка");
 		}
 
+        if (checkUser(login)) {
+            ColorPrint.printlnRed("Пользователь существует");
+            return;
+        }
+
 		UserData user = new UserData();
-		String shortUrl = user.addUrl(originalUrl, limit, expirationTime);
+        String shortUrl = createShortUrlUser(originalUrl, limit, expirationTime, user);
 
 		userRepository.saveUser(login, user);
 		ColorPrint.printlnGreen("Создана короткая ссылка: " + shortUrl);
@@ -32,16 +46,18 @@ public class UserService {
 
 	public void addUrlToUser(String login, String originalUrl, Integer limit, Integer expirationTime) {
 		if (!JavaUrlValidator.isValidUrl(originalUrl)) {
-			throw new IllegalArgumentException("Невалидная ссылка");
+			ColorPrint.printlnRed("Невалидная ссылка");
+            return;
 		}
 
-		if (!userRepository.checkUser(login)) {
-			throw new IllegalArgumentException("Пользователь не найден");
+		if (!checkUser(login)) {
+			ColorPrint.printlnRed("Пользователь не найден");
+            return;
 		}
 
 		UserData user = userRepository.findUser(login);
 
-		String shortUrl = user.addUrl(originalUrl, limit, expirationTime);
+        String shortUrl = createShortUrlUser(originalUrl, limit, expirationTime, user);
 		if (shortUrl == null) {
 			return;
 		}
@@ -59,70 +75,38 @@ public class UserService {
 	}
 
 	public String getOriginalUrl(String shortUrl) {
-		for (Map.Entry<String, UserData> user : userRepository.getUsers().entrySet()) {
-			String login = user.getKey();
-			UserData userData = user.getValue();
+		for (UserData user : userRepository.getUsers().values()) {
+            UrlInfo urlInfo = user.getShortUrlData(shortUrl);
 
-			HashMap<String, UrlInfo> urls = userData.getUrls();
-
-			if (urls.containsKey(shortUrl)) {
-				if (!checkActiveUserUrl(login, shortUrl)) {
-					ColorPrint.printlnRed("Время жизни ссылки истекло, ссылка удалена.");
-					deleteUrlToUser(shortUrl);
-				}
-				if (checkLimitUrl(login, shortUrl) == Boolean.FALSE) {
-					ColorPrint.printlnRed("Лимит переходов закончичлся, ссылка удалена.");
-					deleteUrlToUser(shortUrl);
-					return null;
-				}
-				UrlInfo urlInfo = urls.get(shortUrl);
-				if (urlInfo == null) {
-					return null;
-				}
+			if (urlInfo != null) {
+                if (!UrlValidationService.isValidUrl(urlInfo)) {
+                    deleteUrlToUser(shortUrl);
+                    break;
+                }
 				return urlInfo.getOriginalUrl();
 			}
 		}
 		return null;
 	}
 
-	public void decrementLimit(String shortUrl) {
+	public void decrementLimitUrl(String shortUrl) {
 		for (Map.Entry<String, UserData> user : userRepository.getUsers().entrySet()) {
 			HashMap<String, UrlInfo> urls = user.getValue().getUrls();
 
-			if (urls.containsKey(shortUrl)) {
-				UrlInfo urlInfo = urls.get(shortUrl);
-				urlInfo.decrimentLimit();
+            if (UrlLimitService.decrementLimit(shortUrl, urls)) {
 				userRepository.saveUser(user.getKey(), user.getValue());
 				break;
 			}
 		}
 	}
 
-	public @Nullable Boolean checkLimitUrl(String login, String shortUrl) {
-		UrlInfo urlInfo = getUrlInfo(login, shortUrl);
-		if (urlInfo == null) {
-			return null;
-		}
-		return urlInfo.getLimit() != 0;
-	}
-
 	private void deleteUrlToUser(String shortUrl) {
 		userRepository.getUsers().forEach((login, data) -> {
 			HashMap<String, UrlInfo> urls = data.getUrls();
-			if (urls.containsKey(shortUrl)) {
-				userRepository.deleteUrlToUser(login, shortUrl);
+			if (UrlService.deleteUrl(shortUrl, urls)) {
+				userRepository.saveUser(login, data);
 			}
 		});
-	}
-
-	public boolean checkActiveUserUrl(String login, String shortUrl) {
-		UrlInfo urlInfo = getUrlInfo(login, shortUrl);
-
-		Integer expirationTimeUserUrl = urlInfo.getExpirationTime();
-
-		LocalDateTime dateUserUrl = LocalDateTime.parse(urlInfo.getDate(), UtilConstants.FORMATTER)
-				.plusMinutes(expirationTimeUserUrl);
-		return !dateUserUrl.isBefore(LocalDateTime.now());
 	}
 
 	public boolean checkUser(String login) {

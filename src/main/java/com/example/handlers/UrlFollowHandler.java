@@ -27,7 +27,7 @@ public class UrlFollowHandler {
 		}
 
 		followUrl(originalUrl);
-		userService.decrementLimit(shortUrl);
+		userService.decrementLimitUrl(shortUrl);
 	}
 
 	private String getValidShortUrl() {

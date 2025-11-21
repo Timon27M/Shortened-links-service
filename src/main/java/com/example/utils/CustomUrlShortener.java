@@ -6,8 +6,7 @@ import java.util.UUID;
 public class CustomUrlShortener {
 	private static final String BASE_URL = "clck.ru/";
 
-	public static String shortenUrl(String originalUrl) {
-		String uuid = UUID.randomUUID().toString();
+	public static String shortenUrl(String originalUrl, String uuid) {
 		String shortCode = Base64.getUrlEncoder().withoutPadding().encodeToString(uuid.getBytes()).substring(0, 8);
 
 		return BASE_URL + shortCode;
