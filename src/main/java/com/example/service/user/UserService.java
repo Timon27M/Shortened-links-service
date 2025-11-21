@@ -10,7 +10,6 @@ import com.example.utils.ColorPrint;
 import com.example.utils.JavaUrlValidator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class UserService {
 	private final UserRepository userRepository;

@@ -1,7 +1,6 @@
 package com.example.utils;
 
 import java.util.Base64;
-import java.util.UUID;
 
 public class CustomUrlShortener {
 	private static final String BASE_URL = "clck.ru/";

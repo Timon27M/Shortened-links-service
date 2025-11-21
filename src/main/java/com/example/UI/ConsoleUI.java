@@ -1,7 +1,9 @@
 package com.example.UI;
 
+import com.example.handlers.AdminPanelHandler;
 import com.example.handlers.UrlCreationHandler;
 import com.example.handlers.UrlFollowHandler;
+import com.example.service.admin.AdminService;
 import com.example.service.user.UserService;
 import com.example.utils.ColorPrint;
 import com.example.utils.ScannerUtil;
@@ -11,10 +13,12 @@ import java.net.URISyntaxException;
 
 public class ConsoleUI {
 	private final UserService userService;
+    private final AdminService adminService;
 	private boolean isStarted;
 
-	public ConsoleUI(UserService userService) {
+	public ConsoleUI(UserService userService, AdminService adminService) {
 		this.userService = userService;
+        this.adminService = adminService;
 		this.isStarted = true;
 	}
 
@@ -33,15 +37,16 @@ public class ConsoleUI {
 		Integer actionNumber = ScannerUtil.readInt("Выберите действие: ");
 
 		if (actionNumber == null) {
-			System.out.println("Неверный ввод");
+			ColorPrint.printlnRed("Неверный ввод");
 			return;
 		}
 
 		switch (actionNumber) {
 			case 1 -> handleCreateUrl();
 			case 2 -> handleFollowLink();
+            case 3 -> handleAdminActions();
 			case 4 -> stop();
-			default -> System.out.println("Неизвестное действие");
+			default -> ColorPrint.printlnRed("Неизвестное действие");
 		}
 	}
 
@@ -58,6 +63,11 @@ public class ConsoleUI {
 			ColorPrint.printlnRed("Ошибка при переходе по ссылке: " + e.getMessage());
 		}
 	}
+
+    private void handleAdminActions() {
+        AdminPanelHandler handler = new AdminPanelHandler(adminService);
+        handler.handle();
+    }
 
 	private void stop() {
 		ColorPrint.printlnRed("Выход из программы");
