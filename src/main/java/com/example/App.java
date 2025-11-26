@@ -7,13 +7,13 @@ import com.example.service.user.UserService;
 
 public class App {
 
-    public static void main(String[] args) {
-        UserRepository userRepository = new UserRepository();
-        UserService userService = new UserService(userRepository);
+	public static void main(String[] args) {
+		UserRepository userRepository = new UserRepository();
+		UserService userService = new UserService(userRepository);
 
-        AdminService adminService = new AdminService(userRepository);
+		AdminService adminService = new AdminService(userRepository);
 
-        ConsoleUI ui = new ConsoleUI(userService, adminService);
-        ui.start();
-    }
+		ConsoleUI ui = new ConsoleUI(userService, adminService);
+		ui.start();
+	}
 }

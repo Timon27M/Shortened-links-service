@@ -5,22 +5,22 @@ import com.example.utils.CustomUrlShortener;
 import java.util.HashMap;
 
 public class UrlService {
-    public static String createShortUrl(String originalUrl, String id) {
-        return CustomUrlShortener.shortenUrl(originalUrl, id);
-    }
+	public static String createShortUrl(String originalUrl, String id) {
+		return CustomUrlShortener.shortenUrl(originalUrl, id);
+	}
 
-    public static UrlInfo createUrlInfo(String originalUrl, Integer limit, Integer expirationTime) {
-        UrlInfo urlInfo = new UrlInfo(originalUrl, limit, expirationTime);
+	public static UrlInfo createUrlInfo(String originalUrl, Integer limit, Integer expirationTime) {
+		UrlInfo urlInfo = new UrlInfo(originalUrl, limit, expirationTime);
 
-        return urlInfo;
-    }
+		return urlInfo;
+	}
 
-    public static boolean deleteUrl(String shortUrl, HashMap<String, UrlInfo> urls) {
-        if (urls.containsKey(shortUrl)) {
-            urls.remove(shortUrl);
-            return true;
-        }
+	public static boolean deleteUrl(String shortUrl, HashMap<String, UrlInfo> urls) {
+		if (urls.containsKey(shortUrl)) {
+			urls.remove(shortUrl);
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

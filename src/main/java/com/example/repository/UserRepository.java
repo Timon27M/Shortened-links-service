@@ -39,8 +39,8 @@ public class UserRepository {
 		saveUsers();
 	}
 
-    public void deleteUser(String login) {
-        users.remove(login);
-        saveUsers();
-    }
+	public void deleteUser(String login) {
+		users.remove(login);
+		saveUsers();
+	}
 }

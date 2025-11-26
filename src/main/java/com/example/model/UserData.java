@@ -1,7 +1,5 @@
 package com.example.model;
 
-import com.example.utils.ColorPrint;
-import com.example.utils.CustomUrlShortener;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -14,11 +12,11 @@ public class UserData {
 		this.urls = new HashMap<>();
 	}
 
-    public String addUrl(String shortUrl, UrlInfo urlInfo) {
-        this.urls.put(shortUrl, urlInfo);
+	public String addUrl(String shortUrl, UrlInfo urlInfo) {
+		this.urls.put(shortUrl, urlInfo);
 
-        return shortUrl;
-    }
+		return shortUrl;
+	}
 
 	public String getId() {
 		return id;
@@ -34,10 +32,6 @@ public class UserData {
 
 	public boolean checkUserShortUrl(String shortUrl) {
 		return this.urls.containsKey(shortUrl);
-	}
-
-	public boolean checkUserOriginUrl(String originlalUrl) {
-		return this.urls.values().stream().anyMatch(urlInfo -> originlalUrl.equals(urlInfo.getOriginalUrl()));
 	}
 
 	public void deleteUrl(String shortUrl) {

@@ -13,12 +13,12 @@ import java.net.URISyntaxException;
 
 public class ConsoleUI {
 	private final UserService userService;
-    private final AdminService adminService;
+	private final AdminService adminService;
 	private boolean isStarted;
 
 	public ConsoleUI(UserService userService, AdminService adminService) {
 		this.userService = userService;
-        this.adminService = adminService;
+		this.adminService = adminService;
 		this.isStarted = true;
 	}
 
@@ -44,7 +44,7 @@ public class ConsoleUI {
 		switch (actionNumber) {
 			case 1 -> handleCreateUrl();
 			case 2 -> handleFollowLink();
-            case 3 -> handleAdminActions();
+			case 3 -> handleAdminActions();
 			case 4 -> stop();
 			default -> ColorPrint.printlnRed("Неизвестное действие");
 		}
@@ -64,20 +64,20 @@ public class ConsoleUI {
 		}
 	}
 
-    private void handleAdminActions() {
-        String userLogin = ScannerUtil.readString("Введите логин: ");
-        if (userService.checkUser(userLogin)) {
-            String userId = ScannerUtil.readString("Введите UUID: ");
-            if (userService.checkUserUUID(userLogin, userId)) {
-                AdminPanelHandler handler = new AdminPanelHandler(adminService, userLogin);
-                handler.handle();
-            } else {
-                ColorPrint.printlnRed("Неверный UUID");
-            }
-        } else {
-            ColorPrint.printlnRed("Пользователя не сущесствует");
-        }
-    }
+	private void handleAdminActions() {
+		String userLogin = ScannerUtil.readString("Введите логин: ");
+		if (userService.checkUser(userLogin)) {
+			String userId = ScannerUtil.readString("Введите UUID: ");
+			if (userService.checkUserUUID(userLogin, userId)) {
+				AdminPanelHandler handler = new AdminPanelHandler(adminService, userLogin);
+				handler.handle();
+			} else {
+				ColorPrint.printlnRed("Неверный UUID");
+			}
+		} else {
+			ColorPrint.printlnRed("Пользователя не сущесствует");
+		}
+	}
 
 	private void stop() {
 		ColorPrint.printlnRed("Выход из программы");

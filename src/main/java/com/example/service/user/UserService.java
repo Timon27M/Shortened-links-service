@@ -18,26 +18,26 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-    private static String createShortUrlUser(String originalUrl, Integer limit, Integer expirationTime, UserData user) {
-        String shortUrl = UrlService.createShortUrl(originalUrl, user.getId());
-        UrlInfo urlInfo = UrlService.createUrlInfo(originalUrl, limit, expirationTime);
-        user.addUrl(shortUrl, urlInfo);
+	private static String createShortUrlUser(String originalUrl, Integer limit, Integer expirationTime, UserData user) {
+		String shortUrl = UrlService.createShortUrl(originalUrl, user.getId());
+		UrlInfo urlInfo = UrlService.createUrlInfo(originalUrl, limit, expirationTime);
+		user.addUrl(shortUrl, urlInfo);
 
-        return shortUrl;
-    }
+		return shortUrl;
+	}
 
 	public void createUser(String login, String originalUrl, Integer limit, Integer expirationTime) {
 		if (!JavaUrlValidator.isValidUrl(originalUrl)) {
 			throw new IllegalArgumentException("Невалидная ссылка");
 		}
 
-        if (checkUser(login)) {
-            ColorPrint.printlnRed("Пользователь существует");
-            return;
-        }
+		if (checkUser(login)) {
+			ColorPrint.printlnRed("Пользователь существует");
+			return;
+		}
 
 		UserData user = new UserData();
-        String shortUrl = createShortUrlUser(originalUrl, limit, expirationTime, user);
+		String shortUrl = createShortUrlUser(originalUrl, limit, expirationTime, user);
 
 		userRepository.saveUser(login, user);
 		ColorPrint.printlnGreen("Ваш уникальный UUID: " + user.getId());
@@ -47,17 +47,17 @@ public class UserService {
 	public void addUrlToUser(String login, String originalUrl, Integer limit, Integer expirationTime) {
 		if (!JavaUrlValidator.isValidUrl(originalUrl)) {
 			ColorPrint.printlnRed("Невалидная ссылка");
-            return;
+			return;
 		}
 
 		if (!checkUser(login)) {
 			ColorPrint.printlnRed("Пользователь не найден");
-            return;
+			return;
 		}
 
 		UserData user = userRepository.findUser(login);
 
-        String shortUrl = createShortUrlUser(originalUrl, limit, expirationTime, user);
+		String shortUrl = createShortUrlUser(originalUrl, limit, expirationTime, user);
 		if (shortUrl == null) {
 			return;
 		}
@@ -65,24 +65,15 @@ public class UserService {
 		ColorPrint.printlnGreen("Создана короткая ссылка: " + shortUrl);
 	}
 
-	public UrlInfo getUrlInfo(String login, String shortUrl) {
-		if (!userRepository.checkUser(login)) {
-			ColorPrint.printlnRed("Пользователь не найден");
-			return null;
-		}
-
-		return userRepository.findUser(login).getShortUrlData(shortUrl);
-	}
-
 	public String getOriginalUrl(String shortUrl) {
 		for (UserData user : userRepository.getUsers().values()) {
-            UrlInfo urlInfo = user.getShortUrlData(shortUrl);
+			UrlInfo urlInfo = user.getShortUrlData(shortUrl);
 
 			if (urlInfo != null) {
-                if (!UrlValidationService.isValidUrl(urlInfo)) {
-                    deleteUrlToUser(shortUrl);
-                    break;
-                }
+				if (!UrlValidationService.isValidUrl(urlInfo)) {
+					deleteUrlToUser(shortUrl);
+					break;
+				}
 				return urlInfo.getOriginalUrl();
 			}
 		}
@@ -93,7 +84,7 @@ public class UserService {
 		for (Map.Entry<String, UserData> user : userRepository.getUsers().entrySet()) {
 			HashMap<String, UrlInfo> urls = user.getValue().getUrls();
 
-            if (UrlLimitService.decrementLimit(shortUrl, urls)) {
+			if (UrlLimitService.decrementLimit(shortUrl, urls)) {
 				userRepository.saveUser(user.getKey(), user.getValue());
 				break;
 			}
@@ -113,8 +104,8 @@ public class UserService {
 		return userRepository.checkUser(login);
 	}
 
-    public boolean checkUserUUID(String login, String uuid) {
-        UserData user = userRepository.findUser(login);
-        return user.getId().equals(uuid);
-    }
+	public boolean checkUserUUID(String login, String uuid) {
+		UserData user = userRepository.findUser(login);
+		return user.getId().equals(uuid);
+	}
 }
