@@ -68,8 +68,8 @@ public class ConsoleUI {
 	private void handleAdminActions() {
 		String userLogin = ScannerUtil.readString("Введите логин: ");
 		if (userService.checkUser(userLogin)) {
-            UUID userId = ScannerUtil.readUuid("Введите UUID: ");
-            ColorPrint.printlnWhite("");
+			UUID userId = ScannerUtil.readUuid("Введите UUID: ");
+			ColorPrint.printlnWhite("");
 			if (userService.checkUserUUID(userLogin, userId)) {
 				AdminPanelHandler handler = new AdminPanelHandler(adminService, userLogin);
 				handler.handle();

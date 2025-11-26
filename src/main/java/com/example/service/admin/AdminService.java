@@ -63,14 +63,15 @@ public class AdminService {
 		}
 	}
 
-    public UrlInfo getUserUrlInfo(String login, String shortUrl) {
-        UserData userData = userRepository.findUser(login);
-        if (userData == null) return null;
+	public UrlInfo getUserUrlInfo(String login, String shortUrl) {
+		UserData userData = userRepository.findUser(login);
+		if (userData == null)
+			return null;
 
-        if (userData.checkUserShortUrl(shortUrl)) {
-            return userData.getShortUrlData(shortUrl);
-        }
-        ColorPrint.printlnRed("Ссылки не существует.");
-        return null;
-    }
+		if (userData.checkUserShortUrl(shortUrl)) {
+			return userData.getShortUrlData(shortUrl);
+		}
+		ColorPrint.printlnRed("Ссылки не существует.");
+		return null;
+	}
 }

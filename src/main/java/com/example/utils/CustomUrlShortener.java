@@ -7,7 +7,8 @@ public class CustomUrlShortener {
 	private static final String BASE_URL = "clck.ru/";
 
 	public static String shortenUrl(String originalUrl, UUID uuid) {
-		String shortCode = Base64.getUrlEncoder().withoutPadding().encodeToString(uuid.toString().getBytes()).substring(0, 8);
+		String shortCode = Base64.getUrlEncoder().withoutPadding().encodeToString(uuid.toString().getBytes())
+				.substring(0, 8);
 
 		return BASE_URL + shortCode;
 	}

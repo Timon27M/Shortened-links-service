@@ -29,13 +29,13 @@ public class AdminPanelHandler {
 			case 2 -> handleUpdateUrlExpirationTime();
 			case 3 -> handleDeleteUrl();
 			case 4 -> handleDeleteAccount();
-            case 5 -> handleUrlParameters();
+			case 5 -> handleUrlParameters();
 			case 6 -> handleBack();
 			default -> ColorPrint.printlnRed("Неизвестное действие");
 		}
 	}
 
-    private void handleUpdateUrlLimit() {
+	private void handleUpdateUrlLimit() {
 		String shortUrl = ScannerUtil.readString("Введите короткую ссылку: ");
 		Integer followLimit = ScannerUtil.readInt("Введите лимит переходов по ссылке: ");
 
@@ -59,21 +59,21 @@ public class AdminPanelHandler {
 		adminService.deleteUser(userLogin);
 	}
 
-    private void handleUrlParameters() {
-        String shortUrl = ScannerUtil.readString("Введите короткую ссылку: ");
+	private void handleUrlParameters() {
+		String shortUrl = ScannerUtil.readString("Введите короткую ссылку: ");
 
-        UrlInfo urlInfo = adminService.getUserUrlInfo(userLogin, shortUrl);
+		UrlInfo urlInfo = adminService.getUserUrlInfo(userLogin, shortUrl);
 
-        if (urlInfo != null) {
-            ColorPrint.printlnWhite("");
-            ColorPrint.printlnGreen("Параметры ссылки " + shortUrl + ": ");
-            ColorPrint.printlnWhite("   Лимит: " + urlInfo.getLimit());
-            ColorPrint.printlnWhite("   Оригинальная ссылка: " + urlInfo.getOriginalUrl());
-            ColorPrint.printlnWhite("   Ссылка создана: " + urlInfo.getDate());
-            ColorPrint.printlnWhite("   Время жизни ссылки (в минутах): " + urlInfo.getExpirationTime());
-            ColorPrint.printlnWhite("");
-        }
-    }
+		if (urlInfo != null) {
+			ColorPrint.printlnWhite("");
+			ColorPrint.printlnGreen("Параметры ссылки " + shortUrl + ": ");
+			ColorPrint.printlnWhite("   Лимит: " + urlInfo.getLimit());
+			ColorPrint.printlnWhite("   Оригинальная ссылка: " + urlInfo.getOriginalUrl());
+			ColorPrint.printlnWhite("   Ссылка создана: " + urlInfo.getDate());
+			ColorPrint.printlnWhite("   Время жизни ссылки (в минутах): " + urlInfo.getExpirationTime());
+			ColorPrint.printlnWhite("");
+		}
+	}
 
 	private void handleBack() {
 	}
