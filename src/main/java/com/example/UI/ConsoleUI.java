@@ -10,6 +10,7 @@ import com.example.utils.ScannerUtil;
 import com.example.utils.UtilConstants;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.UUID;
 
 public class ConsoleUI {
 	private final UserService userService;
@@ -67,7 +68,8 @@ public class ConsoleUI {
 	private void handleAdminActions() {
 		String userLogin = ScannerUtil.readString("Введите логин: ");
 		if (userService.checkUser(userLogin)) {
-			String userId = ScannerUtil.readString("Введите UUID: ");
+            UUID userId = ScannerUtil.readUuid("Введите UUID: ");
+            ColorPrint.printlnWhite("");
 			if (userService.checkUserUUID(userLogin, userId)) {
 				AdminPanelHandler handler = new AdminPanelHandler(adminService, userLogin);
 				handler.handle();

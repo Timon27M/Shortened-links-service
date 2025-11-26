@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class UserData {
-	private String id;
+	private UUID id;
 	private HashMap<String, UrlInfo> urls;
 
 	public UserData() {
-		this.id = UUID.randomUUID().toString();
+		this.id = UUID.randomUUID();
 		this.urls = new HashMap<>();
 	}
 
@@ -18,7 +18,7 @@ public class UserData {
 		return shortUrl;
 	}
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 

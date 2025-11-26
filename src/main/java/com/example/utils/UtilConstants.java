@@ -18,7 +18,8 @@ public class UtilConstants {
 			2. Обновить время жизни короткой ссылки.
 			3. Удалить ссылку.
 			4. Удалить акканунт.
-			5. Назад.
+			5. Показать параметры ссылки.
+			6. Назад.
 			         """;
 
 	public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

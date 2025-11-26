@@ -18,6 +18,7 @@ public class UrlLimitService {
 		if (urlInfo == null) {
 			return false;
 		}
+
 		return urlInfo.getLimit() != 0;
 	}
 }

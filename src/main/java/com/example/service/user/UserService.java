@@ -10,6 +10,7 @@ import com.example.utils.ColorPrint;
 import com.example.utils.JavaUrlValidator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class UserService {
 	private final UserRepository userRepository;
@@ -104,7 +105,7 @@ public class UserService {
 		return userRepository.checkUser(login);
 	}
 
-	public boolean checkUserUUID(String login, String uuid) {
+	public boolean checkUserUUID(String login, UUID uuid) {
 		UserData user = userRepository.findUser(login);
 		return user.getId().equals(uuid);
 	}

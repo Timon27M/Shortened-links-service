@@ -11,8 +11,7 @@ public class UrlInfo {
 	private int expirationTime;
 	private DateTimeFormatter formatter;
 
-	public UrlInfo() {
-	}
+	public UrlInfo() {}
 
 	public UrlInfo(String originalUrl, @Nullable Integer limit, @Nullable Integer expirationTime) {
 		this.originalUrl = originalUrl;
@@ -31,7 +30,7 @@ public class UrlInfo {
 		this.date = date;
 	}
 
-	public @Nullable Integer getExpirationTime() {
+	public int getExpirationTime() {
 		return expirationTime;
 	}
 

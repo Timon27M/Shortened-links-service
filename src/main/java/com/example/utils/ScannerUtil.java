@@ -1,6 +1,7 @@
 package com.example.utils;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 public class ScannerUtil {
 
@@ -20,7 +21,9 @@ public class ScannerUtil {
 			}
 		} else if (type == String.class) {
 			return type.cast(sc.nextLine());
-		}
+		} else if (type == UUID.class) {
+            return type.cast(UUID.fromString(sc.nextLine()));
+        }
 		return null;
 	}
 
@@ -31,6 +34,8 @@ public class ScannerUtil {
 	public static String readString(String text) {
 		return scannerRun(text, String.class);
 	}
+
+    public static UUID readUuid(String text) { return scannerRun(text, UUID.class); }
 
 	public static void closeScanner() {
 		sc.close();
