@@ -18,6 +18,10 @@ public class ColorPrint {
 		System.out.println(BLUE + text + RESET);
 	}
 
+	public static void printlnWhite(String text) {
+		System.out.println(text);
+	}
+
 	public static void printRed(String text) {
 		System.out.print(RED + text + RESET);
 	}

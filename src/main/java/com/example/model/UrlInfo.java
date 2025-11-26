@@ -31,7 +31,7 @@ public class UrlInfo {
 		this.date = date;
 	}
 
-	public @Nullable Integer getExpirationTime() {
+	public int getExpirationTime() {
 		return expirationTime;
 	}
 

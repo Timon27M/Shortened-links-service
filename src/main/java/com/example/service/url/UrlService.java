@@ -3,9 +3,10 @@ package com.example.service.url;
 import com.example.model.UrlInfo;
 import com.example.utils.CustomUrlShortener;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class UrlService {
-	public static String createShortUrl(String originalUrl, String id) {
+	public static String createShortUrl(String originalUrl, UUID id) {
 		return CustomUrlShortener.shortenUrl(originalUrl, id);
 	}
 
