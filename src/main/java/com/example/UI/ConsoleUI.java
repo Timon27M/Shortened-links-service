@@ -65,12 +65,23 @@ public class ConsoleUI {
 	}
 
     private void handleAdminActions() {
-        AdminPanelHandler handler = new AdminPanelHandler(adminService);
-        handler.handle();
+        String userLogin = ScannerUtil.readString("Введите логин: ");
+        if (userService.checkUser(userLogin)) {
+            String userId = ScannerUtil.readString("Введите UUID: ");
+            if (userService.checkUserUUID(userLogin, userId)) {
+                AdminPanelHandler handler = new AdminPanelHandler(adminService, userLogin);
+                handler.handle();
+            } else {
+                ColorPrint.printlnRed("Неверный UUID");
+            }
+        } else {
+            ColorPrint.printlnRed("Пользователя не сущесствует");
+        }
     }
 
 	private void stop() {
 		ColorPrint.printlnRed("Выход из программы");
+
 		isStarted = false;
 	}
 }

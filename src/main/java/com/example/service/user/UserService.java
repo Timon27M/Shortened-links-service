@@ -40,6 +40,7 @@ public class UserService {
         String shortUrl = createShortUrlUser(originalUrl, limit, expirationTime, user);
 
 		userRepository.saveUser(login, user);
+		ColorPrint.printlnGreen("Ваш уникальный UUID: " + user.getId());
 		ColorPrint.printlnGreen("Создана короткая ссылка: " + shortUrl);
 	}
 
@@ -111,4 +112,9 @@ public class UserService {
 	public boolean checkUser(String login) {
 		return userRepository.checkUser(login);
 	}
+
+    public boolean checkUserUUID(String login, String uuid) {
+        UserData user = userRepository.findUser(login);
+        return user.getId().equals(uuid);
+    }
 }

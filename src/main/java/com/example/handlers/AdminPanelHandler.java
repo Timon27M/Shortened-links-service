@@ -7,9 +7,11 @@ import com.example.utils.UtilConstants;
 
 public class AdminPanelHandler {
     private final AdminService adminService;
+    private final String userLogin;
 
-    public AdminPanelHandler(AdminService adminService) {
+    public AdminPanelHandler(AdminService adminService, String userLogin) {
         this.adminService = adminService;
+        this.userLogin = userLogin;
     }
 
     public void handle() {
@@ -36,26 +38,25 @@ public class AdminPanelHandler {
         String shortUrl = ScannerUtil.readString("Введите короткую ссылку: ");
         Integer followLimit = ScannerUtil.readInt("Введите лимит переходов по ссылке: ");
 
+        adminService.updateUrlLimit(userLogin, shortUrl, followLimit);
     }
 
     private void handleUpdateUrlExpirationTime() {
-        String userLogin = ScannerUtil.readString("Введите логин: ");
         String shortUrl = ScannerUtil.readString("Введите короткую ссылку: ");
         Integer expirationTime = ScannerUtil.readInt("Введите время жизни ссылки (в минутах): ");
+
+        adminService.updateUrlExpirationTime(userLogin, shortUrl, expirationTime);
     }
 
     private void handleDeleteUrl() {
-        String userLogin = ScannerUtil.readString("Введите логин: ");
         String shortUrl = ScannerUtil.readString("Введите короткую ссылку: ");
 
+        adminService.deleteUserUrl(userLogin, shortUrl);
     }
 
     private void handleDeleteAccount() {
-        String userLogin = ScannerUtil.readString("Введите логин: ");
+        adminService.deleteUser(userLogin);
     }
 
-    private void handleBack() {
-
-    }
-
+    private void handleBack() {}
 }

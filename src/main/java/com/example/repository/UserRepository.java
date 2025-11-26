@@ -38,4 +38,9 @@ public class UserRepository {
 		findUser(login).deleteUrl(shortUrl);
 		saveUsers();
 	}
+
+    public void deleteUser(String login) {
+        users.remove(login);
+        saveUsers();
+    }
 }

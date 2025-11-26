@@ -46,15 +46,20 @@ public class AdminService {
 
     public void deleteUserUrl(String login, String shortUrl) {
         if (userRepository.checkUser(login)) {
-            UserData userData = userRepository.findUser(login);
-            if (userData.checkUserShortUrl(shortUrl)) {
-                userData.deleteUrl(shortUrl);
-                userRepository.saveUser(login, userData);
+            if (userRepository.findUser(login).checkUserShortUrl(shortUrl)) {
+                userRepository.deleteUrlToUser(login, shortUrl);
                 return;
             }
             ColorPrint.printlnRed("Ссылки не существует!");
         }
 
         ColorPrint.printlnRed("Пользователя не существует!");
+    }
+
+    public void deleteUser(String login) {
+        if (userRepository.checkUser(login)) {
+            userRepository.deleteUser(login);
+            ColorPrint.printlnGreen("Пользователь успешно удален!");
+        }
     }
 }
