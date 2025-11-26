@@ -48,10 +48,8 @@ public class UrlCreationHandler {
 	private void createUrl(String userLogin, String originalUrl, Integer followLimit, Integer expirationTime) {
 		try {
 			if (userService.checkUser(userLogin)) {
-				// Пользователь существует - добавляем URL
 				userService.addUrlToUser(userLogin, originalUrl, followLimit, expirationTime);
 			} else {
-				// Новый пользователь - создаем
 				userService.createUser(userLogin, originalUrl, followLimit, expirationTime);
 			}
 		} catch (IllegalArgumentException e) {
