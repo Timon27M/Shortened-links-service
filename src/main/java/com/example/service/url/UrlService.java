@@ -6,17 +6,17 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class UrlService {
-	public static String createShortUrl(String originalUrl, UUID id) {
+	public String createShortUrl(String originalUrl, UUID id) {
 		return CustomUrlShortener.shortenUrl(originalUrl, id);
 	}
 
-	public static UrlInfo createUrlInfo(String originalUrl, Integer limit, Integer expirationTime) {
+	public UrlInfo createUrlInfo(String originalUrl, Integer limit, Integer expirationTime) {
 		UrlInfo urlInfo = new UrlInfo(originalUrl, limit, expirationTime);
 
 		return urlInfo;
 	}
 
-	public static boolean deleteUrl(String shortUrl, HashMap<String, UrlInfo> urls) {
+	public boolean deleteUrl(String shortUrl, HashMap<String, UrlInfo> urls) {
 		if (urls.containsKey(shortUrl)) {
 			urls.remove(shortUrl);
 			return true;
@@ -24,4 +24,14 @@ public class UrlService {
 
 		return false;
 	}
+
+    public boolean isExistsOriginalUrl(String originalUrl, HashMap<String, UrlInfo> urls) {
+        for (UrlInfo urlInfo : urls.values()) {
+            if (originalUrl.equals(urlInfo.getOriginalUrl())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
