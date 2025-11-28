@@ -42,12 +42,17 @@ public class UrlCreationHandler {
 			ColorPrint.printlnRed("URL не может быть пустым");
 			return null;
 		}
+
 		return originalUrl.trim();
 	}
 
 	private void createUrl(String userLogin, String originalUrl, Integer followLimit, Integer expirationTime) {
 		try {
 			if (userService.checkUser(userLogin)) {
+				if (userService.checkOriginalUrlByUser(userLogin, originalUrl)) {
+					ColorPrint.printlnRed("Ошибка: Данная ссылка у пользователя " + userLogin + " уже существует");
+					return;
+				}
 				userService.addUrlToUser(userLogin, originalUrl, followLimit, expirationTime);
 			} else {
 				userService.createUser(userLogin, originalUrl, followLimit, expirationTime);

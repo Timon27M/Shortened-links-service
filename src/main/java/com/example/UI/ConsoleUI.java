@@ -82,7 +82,7 @@ public class ConsoleUI {
 	}
 
 	private void stop() {
-		ColorPrint.printlnRed("Выход из программы");
+		ColorPrint.printlnWhite("Выход из программы...");
 
 		isStarted = false;
 	}
