@@ -14,11 +14,11 @@ import java.util.UUID;
 
 public class UserService {
 	private final UserRepository userRepository;
-    private final UrlService urlService;
+	private final UrlService urlService;
 
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
-        this.urlService = new UrlService();
+		this.urlService = new UrlService();
 	}
 
 	private String createShortUrlUser(String originalUrl, Integer limit, Integer expirationTime, UserData user) {
@@ -70,8 +70,8 @@ public class UserService {
 
 	public String getOriginalUrl(String shortUrl) {
 		for (Map.Entry<String, UserData> user : userRepository.getUsers().entrySet()) {
-            String login = user.getKey();
-            UserData userData = user.getValue();
+			String login = user.getKey();
+			UserData userData = user.getValue();
 			UrlInfo urlInfo = userData.getShortUrlData(shortUrl);
 
 			if (urlInfo != null) {
@@ -97,18 +97,18 @@ public class UserService {
 	}
 
 	private void deleteUrlToUser(String login, String shortUrl) {
-        UserData data = userRepository.findUser(login);
-			HashMap<String, UrlInfo> urls = data.getUrls();
-			if (urlService.deleteUrl(shortUrl, urls)) {
-				userRepository.saveUser(login, data);
-			}
+		UserData data = userRepository.findUser(login);
+		HashMap<String, UrlInfo> urls = data.getUrls();
+		if (urlService.deleteUrl(shortUrl, urls)) {
+			userRepository.saveUser(login, data);
+		}
 	}
 
-    public boolean checkOriginalUrlByUser(String login, String originalUrl) {
-        HashMap<String, UrlInfo> urls = userRepository.findUser(login).getUrls();
+	public boolean checkOriginalUrlByUser(String login, String originalUrl) {
+		HashMap<String, UrlInfo> urls = userRepository.findUser(login).getUrls();
 
-        return urlService.isExistsOriginalUrl(originalUrl, urls);
-    }
+		return urlService.isExistsOriginalUrl(originalUrl, urls);
+	}
 
 	public boolean checkUser(String login) {
 		return userRepository.checkUser(login);

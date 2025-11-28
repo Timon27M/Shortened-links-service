@@ -47,12 +47,12 @@ public class UrlCreationHandler {
 	}
 
 	private void createUrl(String userLogin, String originalUrl, Integer followLimit, Integer expirationTime) {
-        try {
+		try {
 			if (userService.checkUser(userLogin)) {
-                if (userService.checkOriginalUrlByUser(userLogin, originalUrl)) {
-                    ColorPrint.printlnRed("Ошибка: Данная ссылка у пользователя " + userLogin + " уже существует");
-                    return;
-                }
+				if (userService.checkOriginalUrlByUser(userLogin, originalUrl)) {
+					ColorPrint.printlnRed("Ошибка: Данная ссылка у пользователя " + userLogin + " уже существует");
+					return;
+				}
 				userService.addUrlToUser(userLogin, originalUrl, followLimit, expirationTime);
 			} else {
 				userService.createUser(userLogin, originalUrl, followLimit, expirationTime);

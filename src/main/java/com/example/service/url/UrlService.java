@@ -25,13 +25,13 @@ public class UrlService {
 		return false;
 	}
 
-    public boolean isExistsOriginalUrl(String originalUrl, HashMap<String, UrlInfo> urls) {
-        for (UrlInfo urlInfo : urls.values()) {
-            if (originalUrl.equals(urlInfo.getOriginalUrl())) {
-                return true;
-            }
-        }
+	public boolean isExistsOriginalUrl(String originalUrl, HashMap<String, UrlInfo> urls) {
+		for (UrlInfo urlInfo : urls.values()) {
+			if (originalUrl.equals(urlInfo.getOriginalUrl())) {
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 }
