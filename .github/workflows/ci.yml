@@ -3,7 +3,7 @@ name: Java CI
 on:
   push:
     branches:
-      - '**'           # Запускается при пуше в ЛЮБУЮ ветку
+      - '**'
   pull_request:
     branches: [ main, develop ]
 jobs:
