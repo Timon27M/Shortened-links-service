@@ -7,8 +7,8 @@ on:
   pull_request:
     branches: [ main, develop ]
 jobs:
-  build:
-    name: "Java CI Check"
+  Check-linter:
+    name: "Java Linter Check"
     runs-on: ubuntu-latest
 
     steps:
@@ -25,9 +25,19 @@ jobs:
       - name: Validate code format
         run: mvn spotless:check
 
-      - name: Run tests
+  test:
+    name: "Java Test"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Testing Code
         run: mvn test
 
+  build:
+    name: "Java Build"
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Build project
         run: mvn clean compile -DskipTests
 
