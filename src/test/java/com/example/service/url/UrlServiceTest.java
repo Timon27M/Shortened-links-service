@@ -20,7 +20,6 @@ class UrlServiceTest {
 	private final String SHORT_URL = "abc123";
 	private final UUID USER_ID = UUID.randomUUID();
 
-	// Тесты для createShortUrl
 	@Test
 	void createShortUrl_ReturnsShortenedUrl() {
 		try (MockedStatic<CustomUrlShortener> mock = mockStatic(CustomUrlShortener.class)) {
@@ -55,7 +54,6 @@ class UrlServiceTest {
 		}
 	}
 
-	// Тесты для createUrlInfo
 	@Test
 	void createUrlInfo_WithAllParameters_CreatesCorrectObject() {
 		// Act
@@ -78,7 +76,6 @@ class UrlServiceTest {
 		assertEquals(10, urlInfo.getExpirationTime()); // Значение по умолчанию
 	}
 
-	// Тесты для deleteUrl
 	@Test
 	void deleteUrl_WhenUrlExists_ReturnsTrueAndRemoves() {
 		// Arrange
@@ -107,7 +104,6 @@ class UrlServiceTest {
 		assertEquals(1, map.size());
 	}
 
-	// Тесты для isExistsOriginalUrl
 	@Test
 	void isExistsOriginalUrl_WhenExists_ReturnsTrue() {
 		// Arrange

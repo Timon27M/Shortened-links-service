@@ -7,6 +7,7 @@ import com.example.model.UrlInfo;
 import com.example.model.UserData;
 import com.example.repository.UserRepository;
 import com.example.utils.ColorPrint;
+import com.example.utils.CustomUrlShortener;
 import com.example.utils.JavaUrlValidator;
 import java.util.HashMap;
 import java.util.UUID;
@@ -67,28 +68,33 @@ class UserServiceTest {
 		}
 	}
 
-	// @Test
-	// void addUrlToUser_WhenUserExists_AddsUrl() {
-	// try (MockedStatic<JavaUrlValidator> validatorMock =
-	// mockStatic(JavaUrlValidator.class);
-	// MockedStatic<ColorPrint> colorPrintMock = mockStatic(ColorPrint.class)) {
-	//
-	// // Arrange
-	// validatorMock.when(() ->
-	// JavaUrlValidator.isValidUrl(ORIGINAL_URL)).thenReturn(true);
-	// when(userRepository.checkUser(LOGIN)).thenReturn(true);
-	// UserData userData = mock(UserData.class);
-	// when(userRepository.findUser(LOGIN)).thenReturn(userData);
-	//
-	// // Act
-	// userService.addUrlToUser(LOGIN, ORIGINAL_URL, 5, 10);
-	//
-	// // Assert
-	// verify(userRepository).saveUser(LOGIN, userData);
-	// colorPrintMock.verify(() -> ColorPrint.printlnGreen(contains("Создана
-	// короткая ссылка:")));
-	// }
-	// }
+	@Test
+	void addUrlToUser_WhenUserExists_AddsUrl() {
+		try (MockedStatic<JavaUrlValidator> validatorMock = mockStatic(JavaUrlValidator.class);
+				MockedStatic<ColorPrint> colorPrintMock = mockStatic(ColorPrint.class);
+				MockedStatic<CustomUrlShortener> urlShortenerMock = mockStatic(CustomUrlShortener.class)) {
+
+			// Arrange
+			UUID userId = UUID.randomUUID();
+			String shortUrl = "clck.ru/abc123";
+
+			validatorMock.when(() -> JavaUrlValidator.isValidUrl(ORIGINAL_URL)).thenReturn(true);
+			when(userRepository.checkUser(LOGIN)).thenReturn(true);
+
+			UserData userData = mock(UserData.class);
+			when(userRepository.findUser(LOGIN)).thenReturn(userData);
+			when(userData.getId()).thenReturn(userId);
+
+			urlShortenerMock.when(() -> CustomUrlShortener.shortenUrl(ORIGINAL_URL, userId)).thenReturn(shortUrl);
+
+			// Act
+			userService.addUrlToUser(LOGIN, ORIGINAL_URL, 5, 10);
+
+			// Assert
+			verify(userRepository).saveUser(LOGIN, userData);
+			colorPrintMock.verify(() -> ColorPrint.printlnGreen(contains("Создана короткая ссылка:")));
+		}
+	}
 
 	@Test
 	void addUrlToUser_WhenUserNotExists_ShowsError() {
