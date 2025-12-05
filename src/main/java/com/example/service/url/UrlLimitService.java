@@ -19,6 +19,6 @@ public class UrlLimitService {
 			return false;
 		}
 
-		return urlInfo.getLimit() != 0;
+		return urlInfo.getLimit() > 0;
 	}
 }
