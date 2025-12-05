@@ -6,41 +6,41 @@ import java.util.HashMap;
 
 public class UserRepository {
 
-	private final String filePath = "UsersDB.json";
-	private HashMap<String, UserData> users;
+  private final String filePath = "UsersDB.json";
+  private HashMap<String, UserData> users;
 
-	public UserRepository() {
-		this.users = HashMapJsonConverter.loadHashMapFromJson(filePath, String.class, UserData.class);
-	}
+  public UserRepository() {
+    this.users = HashMapJsonConverter.loadHashMapFromJson(filePath, String.class, UserData.class);
+  }
 
-	public UserData findUser(String login) {
-		return users.get(login);
-	}
+  public UserData findUser(String login) {
+    return users.get(login);
+  }
 
-	public HashMap<String, UserData> getUsers() {
-		return users;
-	}
+  public HashMap<String, UserData> getUsers() {
+    return users;
+  }
 
-	public void saveUser(String login, UserData user) {
-		users.put(login, user);
-		saveUsers();
-	}
+  public void saveUser(String login, UserData user) {
+    users.put(login, user);
+    saveUsers();
+  }
 
-	private void saveUsers() {
-		HashMapJsonConverter.saveHashMapToJson(users, filePath);
-	}
+  private void saveUsers() {
+    HashMapJsonConverter.saveHashMapToJson(users, filePath);
+  }
 
-	public boolean checkUser(String login) {
-		return users.containsKey(login);
-	}
+  public boolean checkUser(String login) {
+    return users.containsKey(login);
+  }
 
-	public void deleteUrlToUser(String login, String shortUrl) {
-		findUser(login).deleteUrl(shortUrl);
-		saveUsers();
-	}
+  public void deleteUrlToUser(String login, String shortUrl) {
+    findUser(login).deleteUrl(shortUrl);
+    saveUsers();
+  }
 
-	public void deleteUser(String login) {
-		users.remove(login);
-		saveUsers();
-	}
+  public void deleteUser(String login) {
+    users.remove(login);
+    saveUsers();
+  }
 }
