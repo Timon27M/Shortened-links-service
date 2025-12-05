@@ -35,16 +35,16 @@ public class UrlInfo {
 		return expirationTime;
 	}
 
-	public void setExpirationTime(int expirationTime) {
-		this.expirationTime = expirationTime;
+	public void setExpirationTime(Integer expirationTime) {
+		this.expirationTime = expirationTime != null ? expirationTime : this.expirationTime;
 	}
 
 	public int getLimit() {
 		return limit;
 	}
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setLimit(Integer limit) {
+		this.limit = limit != null ? limit : this.limit;
 	}
 
 	public String getOriginalUrl() {
@@ -53,9 +53,5 @@ public class UrlInfo {
 
 	public void decrimentLimit() {
 		this.limit = this.limit - 1;
-	}
-
-	public void setOriginalUrl(String originalUrl) {
-		this.originalUrl = originalUrl;
 	}
 }
