@@ -88,13 +88,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Создаем lowercase имя образа: ghcr.io/timon27m/shortened-links-service:latest
+      - name: Prepare image name
+        id: prep
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}/shortened-links:latest"
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
+
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/shortened-links:latest .
+          docker build -t ${{ steps.prep.outputs.image }} .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}/shortened-links:latest
+          docker push ${{ steps.prep.outputs.image }}
 
 
   java-ci-check:
