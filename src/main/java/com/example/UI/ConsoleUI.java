@@ -13,77 +13,77 @@ import java.net.URISyntaxException;
 import java.util.UUID;
 
 public class ConsoleUI {
-	private final UserService userService;
-	private final AdminService adminService;
-	private boolean isStarted;
+  private final UserService userService;
+  private final AdminService adminService;
+  private boolean isStarted;
 
-	public ConsoleUI(UserService userService, AdminService adminService) {
-		this.userService = userService;
-		this.adminService = adminService;
-		this.isStarted = true;
-	}
+  public ConsoleUI(UserService userService, AdminService adminService) {
+    this.userService = userService;
+    this.adminService = adminService;
+    this.isStarted = true;
+  }
 
-	public void start() {
-		while (isStarted) {
-			showMenu();
-			handleUserChoice();
-		}
-	}
+  public void start() {
+    while (isStarted) {
+      showMenu();
+      handleUserChoice();
+    }
+  }
 
-	private void showMenu() {
-		ColorPrint.printlnBlue(UtilConstants.INSTRUCTION_TEXT);
-	}
+  private void showMenu() {
+    ColorPrint.printlnBlue(UtilConstants.INSTRUCTION_TEXT);
+  }
 
-	private void handleUserChoice() {
-		Integer actionNumber = ScannerUtil.readInt("Выберите действие: ");
+  private void handleUserChoice() {
+    Integer actionNumber = ScannerUtil.readInt("Выберите действие: ");
 
-		if (actionNumber == null) {
-			ColorPrint.printlnRed("Неверный ввод");
-			return;
-		}
+    if (actionNumber == null) {
+      ColorPrint.printlnRed("Неверный ввод");
+      return;
+    }
 
-		switch (actionNumber) {
-			case 1 -> handleCreateUrl();
-			case 2 -> handleFollowLink();
-			case 3 -> handleAdminActions();
-			case 4 -> stop();
-			default -> ColorPrint.printlnRed("Неизвестное действие");
-		}
-	}
+    switch (actionNumber) {
+      case 1 -> handleCreateUrl();
+      case 2 -> handleFollowLink();
+      case 3 -> handleAdminActions();
+      case 4 -> stop();
+      default -> ColorPrint.printlnRed("Неизвестное действие");
+    }
+  }
 
-	private void handleCreateUrl() {
-		UrlCreationHandler handler = new UrlCreationHandler(userService);
-		handler.handle();
-	}
+  private void handleCreateUrl() {
+    UrlCreationHandler handler = new UrlCreationHandler(userService);
+    handler.handle();
+  }
 
-	private void handleFollowLink() {
-		try {
-			UrlFollowHandler handler = new UrlFollowHandler(userService);
-			handler.handle();
-		} catch (URISyntaxException | IOException e) {
-			ColorPrint.printlnRed("Ошибка при переходе по ссылке: " + e.getMessage());
-		}
-	}
+  private void handleFollowLink() {
+    try {
+      UrlFollowHandler handler = new UrlFollowHandler(userService);
+      handler.handle();
+    } catch (URISyntaxException | IOException e) {
+      ColorPrint.printlnRed("Ошибка при переходе по ссылке: " + e.getMessage());
+    }
+  }
 
-	private void handleAdminActions() {
-		String userLogin = ScannerUtil.readString("Введите логин: ");
-		if (userService.checkUser(userLogin)) {
-			UUID userId = ScannerUtil.readUuid("Введите UUID: ");
-			ColorPrint.printlnWhite("");
-			if (userService.checkUserUUID(userLogin, userId)) {
-				AdminPanelHandler handler = new AdminPanelHandler(adminService, userLogin);
-				handler.handle();
-			} else {
-				ColorPrint.printlnRed("Неверный UUID");
-			}
-		} else {
-			ColorPrint.printlnRed("Пользователя не сущесствует");
-		}
-	}
+  private void handleAdminActions() {
+    String userLogin = ScannerUtil.readString("Введите логин: ");
+    if (userService.checkUser(userLogin)) {
+      UUID userId = ScannerUtil.readUuid("Введите UUID: ");
+      ColorPrint.printlnWhite("");
+      if (userService.checkUserUUID(userLogin, userId)) {
+        AdminPanelHandler handler = new AdminPanelHandler(adminService, userLogin);
+        handler.handle();
+      } else {
+        ColorPrint.printlnRed("Неверный UUID");
+      }
+    } else {
+      ColorPrint.printlnRed("Пользователя не сущесствует");
+    }
+  }
 
-	private void stop() {
-		ColorPrint.printlnWhite("Выход из программы...");
+  private void stop() {
+    ColorPrint.printlnWhite("Выход из программы...");
 
-		isStarted = false;
-	}
+    isStarted = false;
+  }
 }

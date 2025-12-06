@@ -6,32 +6,32 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class UrlService {
-	public String createShortUrl(String originalUrl, UUID id) {
-		return CustomUrlShortener.shortenUrl(originalUrl, id);
-	}
+  public String createShortUrl(String originalUrl, UUID id) {
+    return CustomUrlShortener.shortenUrl(originalUrl, id);
+  }
 
-	public UrlInfo createUrlInfo(String originalUrl, Integer limit, Integer expirationTime) {
-		UrlInfo urlInfo = new UrlInfo(originalUrl, limit, expirationTime);
+  public UrlInfo createUrlInfo(String originalUrl, Integer limit, Integer expirationTime) {
+    UrlInfo urlInfo = new UrlInfo(originalUrl, limit, expirationTime);
 
-		return urlInfo;
-	}
+    return urlInfo;
+  }
 
-	public boolean deleteUrl(String shortUrl, HashMap<String, UrlInfo> urls) {
-		if (urls.containsKey(shortUrl)) {
-			urls.remove(shortUrl);
-			return true;
-		}
+  public boolean deleteUrl(String shortUrl, HashMap<String, UrlInfo> urls) {
+    if (urls.containsKey(shortUrl)) {
+      urls.remove(shortUrl);
+      return true;
+    }
 
-		return false;
-	}
+    return false;
+  }
 
-	public boolean isExistsOriginalUrl(String originalUrl, HashMap<String, UrlInfo> urls) {
-		for (UrlInfo urlInfo : urls.values()) {
-			if (originalUrl.equals(urlInfo.getOriginalUrl())) {
-				return true;
-			}
-		}
+  public boolean isExistsOriginalUrl(String originalUrl, HashMap<String, UrlInfo> urls) {
+    for (UrlInfo urlInfo : urls.values()) {
+      if (originalUrl.equals(urlInfo.getOriginalUrl())) {
+        return true;
+      }
+    }
 
-		return false;
-	}
+    return false;
+  }
 }
