@@ -72,10 +72,35 @@ jobs:
       - name: Verify Java version compatibility
         run: mvn compiler:testCompile "-Dmaven.compiler.release=21"
 
+  docker-build:
+    name: "Build & Push Docker Image"
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/shortened-links:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository }}/shortened-links:latest
+
+
   java-ci-check:
     name: "Java CI Check"
     runs-on: ubuntu-latest
-    needs: [ Check-linter, test, build ]  # Зависит от всех jobs
+    needs: [ Check-linter, test, build, docker-build ]  # Зависит от всех jobs
     steps:
       - name: All checks completed
         run: echo "All Java CI checks passed successfully!"
