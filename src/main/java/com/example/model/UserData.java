@@ -4,37 +4,37 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class UserData {
-	private UUID id;
-	private HashMap<String, UrlInfo> urls;
+  private UUID id;
+  private HashMap<String, UrlInfo> urls;
 
-	public UserData() {
-		this.id = UUID.randomUUID();
-		this.urls = new HashMap<>();
-	}
+  public UserData() {
+    this.id = UUID.randomUUID();
+    this.urls = new HashMap<>();
+  }
 
-	public String addUrl(String shortUrl, UrlInfo urlInfo) {
-		this.urls.put(shortUrl, urlInfo);
+  public String addUrl(String shortUrl, UrlInfo urlInfo) {
+    this.urls.put(shortUrl, urlInfo);
 
-		return shortUrl;
-	}
+    return shortUrl;
+  }
 
-	public UUID getId() {
-		return id;
-	}
+  public UUID getId() {
+    return id;
+  }
 
-	public HashMap<String, UrlInfo> getUrls() {
-		return urls;
-	}
+  public HashMap<String, UrlInfo> getUrls() {
+    return urls;
+  }
 
-	public UrlInfo getShortUrlData(String shortUrl) {
-		return this.urls.get(shortUrl);
-	}
+  public UrlInfo getShortUrlData(String shortUrl) {
+    return this.urls.get(shortUrl);
+  }
 
-	public boolean checkUserShortUrl(String shortUrl) {
-		return this.urls.containsKey(shortUrl);
-	}
+  public boolean checkUserShortUrl(String shortUrl) {
+    return this.urls.containsKey(shortUrl);
+  }
 
-	public void deleteUrl(String shortUrl) {
-		this.urls.remove(shortUrl);
-	}
+  public void deleteUrl(String shortUrl) {
+    this.urls.remove(shortUrl);
+  }
 }

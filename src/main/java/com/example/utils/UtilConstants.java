@@ -4,7 +4,8 @@ import java.time.format.DateTimeFormatter;
 
 public class UtilConstants {
 
-	public static final String INSTRUCTION_TEXT = """
+  public static final String INSTRUCTION_TEXT =
+      """
 			=== Генератор коротких ссылок ===
 			1. Создать короткую ссылку.
 			2. Перейти по короткой ссылке.
@@ -12,7 +13,8 @@ public class UtilConstants {
 			4. Выход.
 			""";
 
-	public static final String ADMIN_INSTRUCTION_TEXT = """
+  public static final String ADMIN_INSTRUCTION_TEXT =
+      """
 			         === Действия администратора: ===
 			1. Обновить лимит переходов по ссылке.
 			2. Обновить время жизни короткой ссылки.
@@ -22,5 +24,6 @@ public class UtilConstants {
 			6. Назад.
 			         """;
 
-	public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  public static final DateTimeFormatter FORMATTER =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 }
