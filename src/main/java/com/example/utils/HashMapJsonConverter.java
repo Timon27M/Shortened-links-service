@@ -20,7 +20,7 @@ public class HashMapJsonConverter {
 	public static <K, V> void saveHashMapToJson(HashMap<K, V> map, String filePath) {
 		try {
 			objectMapper.writeValue(new File(filePath), map);
-			ColorPrint.printlnGreen("Данные успешно сохранены");
+//			ColorPrint.printlnGreen("Данные успешно сохранены");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
