@@ -26,8 +26,8 @@ public class UrlInfo {
     return date;
   }
 
-  public void setDate(String date) {
-    this.date = date;
+  public void setDate() {
+    this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
   }
 
   public int getExpirationTime() {

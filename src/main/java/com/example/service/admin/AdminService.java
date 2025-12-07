@@ -20,12 +20,13 @@ public class AdminService {
         UrlInfo urlInfo = userData.getShortUrlData(shortUrl);
         urlInfo.setLimit(newLimit);
         userRepository.saveUser(login, userData);
+        ColorPrint.printlnGreen("Лимит обновлен!");
         return;
       }
       ColorPrint.printlnRed("Ссылки не существует!");
+    } else {
+      ColorPrint.printlnRed("Пользователя не существует!");
     }
-
-    ColorPrint.printlnRed("Пользователя не существует!");
   }
 
   public void updateUrlExpirationTime(String login, String shortUrl, Integer expirationTime) {
@@ -35,13 +36,15 @@ public class AdminService {
       if (userData.checkUserShortUrl(shortUrl)) {
         UrlInfo urlInfo = userData.getShortUrlData(shortUrl);
         urlInfo.setExpirationTime(expirationTime);
+        urlInfo.setDate();
         userRepository.saveUser(login, userData);
+        ColorPrint.printlnGreen("Время жизни ссылки обновлено!");
         return;
       }
       ColorPrint.printlnRed("Ссылки не существует!");
+    } else {
+      ColorPrint.printlnRed("Пользователя не существует!");
     }
-
-    ColorPrint.printlnRed("Пользователя не существует!");
   }
 
   public void deleteUserUrl(String login, String shortUrl) {
@@ -51,9 +54,9 @@ public class AdminService {
         return;
       }
       ColorPrint.printlnRed("Ссылки не существует!");
+    } else {
+      ColorPrint.printlnRed("Пользователя не существует!");
     }
-
-    ColorPrint.printlnRed("Пользователя не существует!");
   }
 
   public void deleteUser(String login) {
