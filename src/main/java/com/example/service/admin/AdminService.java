@@ -17,6 +17,7 @@ public class AdminService {
       UserData userData = userRepository.findUser(login);
 
       if (userData.checkUserShortUrl(shortUrl)) {
+        if (newLimit == null) return;
         UrlInfo urlInfo = userData.getShortUrlData(shortUrl);
         urlInfo.setLimit(newLimit);
         userRepository.saveUser(login, userData);
@@ -34,6 +35,7 @@ public class AdminService {
       UserData userData = userRepository.findUser(login);
 
       if (userData.checkUserShortUrl(shortUrl)) {
+        if (expirationTime == null) return;
         UrlInfo urlInfo = userData.getShortUrlData(shortUrl);
         urlInfo.setExpirationTime(expirationTime);
         urlInfo.setDate();

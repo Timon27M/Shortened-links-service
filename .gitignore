@@ -25,5 +25,4 @@ replay_pid*
 
 target/
 
-UrlsDB.json
-UsersDB.json
+*.json
