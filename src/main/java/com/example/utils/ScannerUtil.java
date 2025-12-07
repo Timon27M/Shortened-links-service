@@ -15,7 +15,7 @@ public class ScannerUtil {
       try {
         return type.cast(Integer.parseInt(number)); // преобразуем в число
       } catch (NumberFormatException e) {
-        System.out.println("Введите число!");
+        ColorPrint.printlnRed("Введите число!");
         return null;
       }
     } else if (type == String.class) {

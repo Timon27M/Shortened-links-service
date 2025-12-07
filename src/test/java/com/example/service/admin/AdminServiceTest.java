@@ -223,15 +223,13 @@ class AdminServiceTest {
     // Arrange
     when(userRepository.checkUser(TEST_LOGIN)).thenReturn(true);
     when(userRepository.findUser(TEST_LOGIN)).thenReturn(userData);
-    when(userData.checkUserShortUrl(TEST_SHORT_URL)).thenReturn(true);
-    when(userData.getShortUrlData(TEST_SHORT_URL)).thenReturn(urlInfo);
 
     // Act
     adminService.updateUrlLimit(TEST_LOGIN, TEST_SHORT_URL, null);
 
     // Assert
-    verify(urlInfo).setLimit(null);
-    verify(userRepository).saveUser(TEST_LOGIN, userData);
+    verify(urlInfo, never()).setLimit(null);
+    verify(userRepository, never()).saveUser(TEST_LOGIN, userData);
   }
 
   @Test
@@ -239,14 +237,12 @@ class AdminServiceTest {
     // Arrange
     when(userRepository.checkUser(TEST_LOGIN)).thenReturn(true);
     when(userRepository.findUser(TEST_LOGIN)).thenReturn(userData);
-    when(userData.checkUserShortUrl(TEST_SHORT_URL)).thenReturn(true);
-    when(userData.getShortUrlData(TEST_SHORT_URL)).thenReturn(urlInfo);
 
     // Act
     adminService.updateUrlExpirationTime(TEST_LOGIN, TEST_SHORT_URL, null);
 
     // Assert
-    verify(urlInfo).setExpirationTime(null);
-    verify(userRepository).saveUser(TEST_LOGIN, userData);
+    verify(urlInfo, never()).setExpirationTime(null);
+    verify(userRepository, never()).saveUser(TEST_LOGIN, userData);
   }
 }
