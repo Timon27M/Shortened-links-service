@@ -135,5 +135,5 @@
 <img width="2528" height="907" alt="Снимок экрана 2025-12-07 191214" src="https://github.com/user-attachments/assets/a15159c7-4344-4689-a103-c7bd43ab6dd5" />
 <img width="1993" height="1127" alt="Снимок экрана 2025-12-07 191358" src="https://github.com/user-attachments/assets/e1f1cbb7-5a90-40f3-845b-d387a5c1f31a" />
 
-### - деплой собирается и запускается, но сразу падает так как проект консольный!
+### - деплой собирается и запускается(сборка происходит из docker образа), но сразу падает так как проект консольный!
 <img width="1979" height="1054" alt="Снимок экрана 2025-12-07 191428" src="https://github.com/user-attachments/assets/490c4939-b144-44f8-9503-5fb9874e5415" />
