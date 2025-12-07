@@ -98,31 +98,31 @@
 Реализовано CI/CD в github. Триггер запускает workflow при каждом пуше в репозиторий.
 
 ### Настроены основные jobs:
-1. Check-linter - происходит проверка код стайла.
+#### 1. Check-linter - происходит проверка код стайла.
 - шаг Checkout code: Скачивает репозиторий в виртуальную машину CI.
 - шаг Set up JDK 21: Устанавливает Java 21 и настраивает Maven cache.
 - шаг Validate code format: Проверяет форматирование кода (Java, XML, etc.) через Spotless.
 
-2. test - запускаются тесты.
+#### 2. test - запускаются тесты.
 - шаг Checkout code: Скачивает репозиторий в виртуальную машину CI.
 - шаг Set up JDK 21: Устанавливает Java 21 и настраивает Maven cache.
 - шаг Run tests: Запускает все тесты из src/test/java.
 
-3. build - сборка проекта. 
+#### 3. build - сборка проекта. 
 - шаг Checkout code: Скачивает репозиторий в виртуальную машину CI.
 - шаг Set up JDK 21: Устанавливает Java 21 и настраивает Maven cache.
 - шаг Build project: делает компиляцию.
 - шаг Run linter (Checkstyle): линтинг правил Java-кода.
 - шаг Verify Java version compatibility: Проверяет совместимость кода с Java 21.
 
-4. docker-build - сборка в docker контейнер.
+#### 4. docker-build - сборка в docker контейнер.
 - шаг Checkout code: Скачивает репозиторий в виртуальную машину CI.
 - шаг Log in to GitHub Container Registry: делает автоматический логин. Чтобы отправить Docker-образ в GHCR (GitHub Container Registry)
 - шаг Prepare image name: Формирует имя Docker-образа и сохраняет имя образа как output.
 - шаг Build Docker image: Запускает Docker build.
 - шаг Push Docker image: Загружает образ в GHCR.
 
-5. java-ci-check - информирует об успешном завершении проверок.
+#### 5. java-ci-check - информирует об успешном завершении проверок.
 - шаг All checks completed: Сообщает об успешных проверках.
 
 <img width="1917" height="391" alt="Снимок экрана 2025-12-07 191013" src="https://github.com/user-attachments/assets/af9dfc26-f36f-42cb-9e8f-f6977eed26e5" />
