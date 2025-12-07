@@ -10,22 +10,15 @@ public class CustomUrlShortener {
 
   public static String shortenUrl(String originalUrl, UUID uuid) {
     try {
-      // 1. Комбинируем UUID и URL
       String combined = uuid.toString() + "||" + originalUrl;
 
-      // 2. Используем MD5 (32-символьный хэш, даже небольшие различия дают РАЗНЫЕ
-      // хэши)
       MessageDigest md = MessageDigest.getInstance("MD5");
       byte[] hashBytes = md.digest(combined.getBytes(StandardCharsets.UTF_8));
 
-      // 3. Кодируем хэш в Base64
       String encoded = Base64.getUrlEncoder().withoutPadding().encodeToString(hashBytes);
-
-      // 4. Берем первые 8 символов - теперь они будут РАЗНЫЕ для разных URL
       return BASE_URL + encoded.substring(0, 8);
 
     } catch (Exception e) {
-      // Fallback: используем хэш-код с солью
       return fallbackShortenUrl(originalUrl, uuid);
     }
   }
