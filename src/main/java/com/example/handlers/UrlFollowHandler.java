@@ -21,7 +21,7 @@ public class UrlFollowHandler {
 
     String originalUrl = userService.getOriginalUrl(shortUrl);
     if (originalUrl == null) {
-      ColorPrint.printlnRed("Ссылки не существует");
+      ColorPrint.printlnRed("Переход по ссылке невозможен");
       return;
     }
 

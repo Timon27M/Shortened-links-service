@@ -3,6 +3,7 @@ package com.example.service.user;
 import com.example.model.UrlInfo;
 import com.example.model.UserData;
 import com.example.repository.UserRepository;
+import com.example.service.url.UrlExpirationTimeService;
 import com.example.service.url.UrlLimitService;
 import com.example.service.url.UrlService;
 import com.example.service.url.UrlValidationService;
@@ -78,7 +79,9 @@ public class UserService {
 
       if (urlInfo != null) {
         if (!UrlValidationService.isValidUrl(urlInfo)) {
-          deleteUrlToUser(login, shortUrl);
+          if (!UrlExpirationTimeService.checkActiveUrlExpirationTime(urlInfo)) {
+            deleteUrlToUser(login, shortUrl);
+          }
           break;
         }
         return urlInfo.getOriginalUrl();
